@@ -1,6 +1,6 @@
 <?php
 # controller file try, not to include any echo info 
-# Define 4 different variables, which will
+# Define 5 different variables, which will
 # each represent how much a given coin is worth
 $penny_value = .01;
 $nickel_value = .05;
@@ -12,6 +12,7 @@ $halfdollar_value = .50;
 // echo $quarter_value; 
 
 # Define 4 more variables, which will each
+# Add a variable for halfdollars
 # represent how many of each coin is in the bank
 $pennies = 300;
 $nickels = 5;
