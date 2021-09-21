@@ -18,8 +18,8 @@
         <li>...</li>
     </ul>
     <h2>Testing</h2>
-    <img src="https://e2p1.metrognome.me/e2/p1/sketch1idea_IMG-3446.jpg" alt="">
-    <!-- <img src="https://e2p1.metrognome.me/public_html/e2/p1/sketch1idea_IMG-3446.jpg" alt=""> -->
+    <img src='../../e2/p1/sketch1idea_IMG-3446.jpg' width='1080' height='810' alt="">
+    <!-- <img src='https://e2p1.metrognome.me/public_html/e2/p1/sketch1idea_IMG-3446.jpg' alt=""> -->
 </body>
 
 </html>
