@@ -11,15 +11,14 @@
     <h1>Project 1</h1>
     <h2>Mechanics</h2>
     <ul>
-        <li>...</li>
+        <li><a href="sketch1idea_IMG-3446.jpg">sketch 1 idea</li>
+        <li><a href="sketch2plan_IMG-3447.jpg">sketch 2 plan</li>
+        <li><a href="5x5_forward-backward_game_ai-vector-visual.png">5x5 tele move</li>
     </ul>
     <h2>Results</h2>
     <ul>
         <li>...</li>
     </ul>
-    <h2>Testing</h2>
-    <img src='../../e2/p1/sketch1idea_IMG-3446.jpg' width='1080' height='810' alt="">
-    <!-- <img src='https://e2p1.metrognome.me/public_html/e2/p1/sketch1idea_IMG-3446.jpg' alt=""> -->
 </body>
 
 </html>
