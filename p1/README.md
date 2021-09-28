@@ -22,6 +22,20 @@ _Begin at 0 and Finish by crossing 25 or (25+1) Steps:_
 
 + _Report the results of Player A's moves, Player B's moves, the total for each, and the winner to the page with message statement :)._
 
+## Mechanics
+_Display descriptive information intro
++ _php syntax used:
++ _1 conditional if statements
++ _2 while loop (or for loop or foreach loop)
++ _3 multi-dimensional array
++ _4 shuffle() rand() range(), array_rand()
++ _4 css defining Player1, Player2, winner, winnernot, board
+
+## Results
++ _Print winner status with total moves to the page
++ _Print winnernot with total moves tothe page
+
+
 ## Outside resources
 
 ## Notes for instructor
@@ -30,10 +44,3 @@ _Begin at 0 and Finish by crossing 25 or (25+1) Steps:_
 + [detail 5x5 tele_move] (5x5_forward-backward_game_ai-vector-visual.png)
 
 
-```html
-<img src="http://e2p1.metrognome.me/sketch1idea_IMG-3446.jpg" alt="">
-```
-
-Most recently I have tried relative directory variations such as what is there now:
-
-'''html
