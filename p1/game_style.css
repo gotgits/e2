@@ -1,0 +1,50 @@
+/* css for project 1 e2 */
+/* game simulation */
+
+body {
+	font-size:  1rem;
+	margin: 1rem;
+	color: #128;
+	background-color: #e6e6fa;
+}
+
+ul li {
+	list-style: none;
+	text-align: left;
+	line-height: 2em;
+}
+/* .background img[png] {
+	z-index: -1;
+} */
+
+.background {
+	padding:  0;
+	margin: 0;
+	background-image:  url("http://e2p1.metrognome.me/5x5odd.png");
+	background-position:  right 10% bottom 10%;
+	z-index: -1;
+}
+
+h1, h2 {
+	color: #4b8e90;
+}
+
+.playerA {
+	color: #1e90ff;
+
+}
+.playerB {
+	color: #40e0d0;
+
+}
+.winner {
+	font-weight:  bolder;
+	text-decoration: overline;
+	color: #ff69b4;
+}
+
+.total {
+	font-weight:  bold;
+	color:  #ff145a;
+}
+

@@ -3,21 +3,27 @@
 
 <head>
     <meta charset='UTF-8' />
-    <title>Project 1</title>
+    <title>Project 1 – 5x5 game simulation</title>
     <link href="data" . rel=icon>
 </head>
 
 <body>
-    <h1>Project 1</h1>
+    <?php
+    //include CSS Style Sheet
+    echo "<link rel='stylesheet' type='text/css' href='game_style.css' />"; ?>
+    <h1>Project 1 - 5x5 Game Simulation</h1>
     <h2>Mechanics</h2>
     <ul>
-        <li><a href="sketch1idea_IMG-3446.jpg">sketch 1 idea</li>
-        <li><a href="sketch2plan_IMG-3447.jpg">sketch 2 plan</li>
-        <li><a href="5x5_forward-backward_game_ai-vector-visual.png">5x5 tele move</li>
+        <li class="playerA">Player A moves <?php echo $playerA ?>times to reach the end</li>
+        <li class="playerB">Player B moves <?php echo $playerB ?>times to reach the end </li>
+        <li class="winner">The winner is <?php echo $winner ?></li>
     </ul>
     <h2>Results</h2>
     <ul>
-        <li>...</li>
+        <li class="playerA"><a href=" "></li>
+        <li class="playerB"><a href=" "></li>
+        <li class="winner"><a href=" "></li>
+        <li class="total"><a href=" "></li>
     </ul>
 </body>
 

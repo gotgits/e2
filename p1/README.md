@@ -29,7 +29,7 @@ _Display descriptive information intro
 + _2 while loop (or for loop or foreach loop)
 + _3 multi-dimensional array
 + _4 shuffle() rand() range(), array_rand()
-+ _4 css defining Player1, Player2, winner, winnernot, board
++ _5 css defining Player1, Player2, winner, winnernot, board
 
 ## Results
 + _Print winner status with total moves to the page
@@ -37,6 +37,7 @@ _Display descriptive information intro
 
 
 ## Outside resources
++ https://www.quora.com/How-do-we-link-CSS-files-to-a-PHP-file
 
 ## Notes for instructor
 + [sketch 1 idea] (e2p1.metrognome.me/sketch1idea_IMG-3446.jpg)
