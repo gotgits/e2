@@ -3,14 +3,14 @@ for ($i = 0; $i < $turn = rand(1, 25); $i++) {
     // Turn to move Player A
     $playerAturn = $turn;
     $totalA = $playerAturn;
-    $i++;
+    // $i++;
 }
 
 for ($j = 0; $j < $turn = rand(1, 25); $j++) {
     # move Player B
     $playerBturn = $turn;
     $totalB = $playerBturn;
-    $j++;
+    // $j++;
 }
 
 
