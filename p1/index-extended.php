@@ -2,18 +2,33 @@
 # controller 
 
 $board = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25); #prevent error beyond end of array
-shuffle($board);
-var_dump($board);
-$move = [0, 1];
+
+// var_dump($board);
+$playerAturn = [];
+$playerBturn = [];
 # divide the board into even and odd positions
 # variation 4 - dynamic variables
 foreach ($board as $key => $move) {
     if ($key % 2 == 0) {
-        $moveTo = 'evenSpot';
-    } else {
         $moveTo = 'oddSpot';
+    } else {
+        $moveTo = 'evenSpot';
     }
     $$moveTo[] = array_pop($board);
+}
+// var_dump($oddSpot);
+// var_dump($evenSpot);
+shuffle($board);
+# variation 5 while loop to take turns up until 25
+$moveTo = 'player';
+while (count($board) > 0) {
+    if ($moveTo == 'player A') {
+        $playerAturn[] = array_pop($board);
+        $moveTo = 'player B';
+    } else {
+        $playerBturn[] = array_pop($board);
+        $moveTo = 'player';
+    }
 }
 
 
@@ -77,4 +92,4 @@ if ($playerA == '$move[rand(0, 25)]') {
     $winner = 'Player B';
 }
 
-require 'index-view.php';
+require 'index-extended-view.php';
