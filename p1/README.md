@@ -35,7 +35,6 @@
 
 ##  Mechanics
 
-### Intro
 + Each player begins at 0 with 25 total spots on the board
 + For each turn a random number of spots moved
 + The last number spot is captured and previous numbers removed
@@ -43,23 +42,13 @@
 + Unique spots on the board produce additional conditions, some of which may be negative
 + The player that reaches or passes spot 25 first is the winner
 
- **php syntax used:**
-
-1. Conditional if-elseif statements
-
-2. While loop (or for loop or foreach loop)
-
-3. Multi-dimensional array
-
-4. Shuffle() rand() range(), array_rand()
-
-5. CSS defining Player1, Player2, winner, board
-
   
 
 ##  Results
 
 + Print round one status for Player A, Player B and results for that round which player won, or tie.
++ Unable to integrating the values for unique spots on board yet.
++ Unable to sum the values for each player for each turn.
 
 
 ##  Outside resources
