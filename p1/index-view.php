@@ -5,6 +5,7 @@
     <meta charset='UTF-8' />
     <title>Project 1 – Finish Line Game Simulation</title>
     <link href="data" . rel=icon>
+    <link rel="stylesheet" href="game-style.css">
 </head>
 
 <body class="background">

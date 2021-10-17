@@ -20,6 +20,23 @@ if ($totalA > $totalB) {
     $roundWinner = 'Player B is Ahead, Congratulations!';
 } else
     $roundWinner = 'tie round, keep going.';
+/*
+# Initialize variables
+$playerATotal = 0;
+$playerATurnCount = 0;
+
+# Go until playerA reaches 25
+while ($playerATotal < 25) {
+
+    # Add a random number to playerA's total each time
+    $playerATotal = $playerATotal + rand(1, 25);
+
+    # Increment how many "turns" they've had
+    $playerATurnCount++;
+}
+
+var_dump("Turns it took player A to get to 25: $playerATurnCount");
+*/
 
 $totalAsum[] = $totalA * $turn;
 $totalBsum[] = $totalB * $turn;
