@@ -53,5 +53,5 @@ $results[] = [
 require 'p1-refactored-view.php';
 
 /*
-I did try ternary operator and simplifying if statments but incurred errors repeatedly. So instead I spent time on trying to sum and show rounds. I discovered that the current logic is not summing the value of the turns only playing until it reaches a number that meets the finish requirement.
+I did try ternary operator and simplifying if statements but incurred errors repeatedly. So instead I spent time on trying to sum and show rounds. I discovered that the current logic is not summing the value of the turns only playing until it reaches a number that meets the finish requirement.
 */

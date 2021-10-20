@@ -23,24 +23,20 @@
                 <li>Each players numbers are accumulated as if they were moving across the board</li>
                 <li>The first player's total that adds up to 25 wins.
             </ol>
-            <h3>Showing round 1 play</h3>
+            <?php foreach ($results as $rounds => $details) { ?>
             <ul>
-                <li class="playerA">Player A moves <?php echo $totalA ?> spaces</li>
-                <li class="playerB">Player B moves <?php echo $totalB ?> spaces</li>
-                <li class="winner">Round Winner – <?php echo $roundWinner ?></li>
-            </ul>
-            <br>
-            <h3>Results</h3>
-
-            <?php foreach ($results as $turn => $details) { ?>
-            <ul>
-                <li class="playerA">Number of turns taken by Player A: <?php echo $details['playerATurnCount'] ?></li>
-                <li class="playerB">Number of turns taken by Player B: <?php echo $details['playerBTurnCount'] ?></li>
-                <li class="winner">You reached the finish first, <?php echo $details['winner'] ?></li>
+                <li>Round # <?php echo $rounds + 1 ?>
+                <li class="playerA">Player A moves <?php echo $totalAValue ?></li>
+                <li class="playerB">Player B moves <?php echo $totalBValue ?></li>
+                <li class="winner">Round results: <?php echo $roundWinner ?></li>
+                <li class="playerA">Total number of turns taken by Player A: <?php echo $details['playerATurnCount'] ?>
+                </li>
+                <li class="playerB">Total number of turns taken by Player B: <?php echo $details['playerBTurnCount'] ?>
+                </li>
+                <li class="winner">Winner! <?php echo $details['winner'] ?>, finishes first! </li>
             </ul>
             <?php } ?>
         </div>
-
     </main>
 </body>
 
