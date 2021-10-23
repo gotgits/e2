@@ -1,36 +1,45 @@
 <?php
 session_start();
-
+#10-23- 3pm producing results for each image, name, clue but not correct answer
 # Array of cities and clues to choose from
 
 $cities = [
     // 'cityName' => [
     '1_seoul' => [
-        'Seoul' => '1 Seoul – South Korea'
+        '1 Seoul – South Korea',
+        'Seoul'
     ],
     '2_geneva' => [
-        'Geneva' => '2 Geneva The Super Proton Synchrotron (SPS) is the second-largest machine in the CERN accelerator complex in Switzerland'
+        'Geneva',
+        '2 Geneva The Super Proton Synchrotron'
     ],
     '3_dunedin' => [
-        'Dunedin' => '3 Dunedin New Zealand home of steepest residential street in the world at 19 degrees'
+        'Dunedin',
+        '3 Dunedin steepest street'
     ],
     '4_reykjavik' => [
-        'Reykjavik' => '4 Reykjavik Iceland'
+        'Reykjavik',
+        '4 Reykjavik Iceland'
     ],
     '5_jericho' => [
-        'Jericho' => '5 Jericho Palestine'
+        'Jericho',
+        '5 Jericho Palestine'
     ],
     '6_toyko' => [
-        'Toyko' => '6 Toyko Japan is the largest metropolitan population'
+        'Toyko',
+        '6 Toyko largest metropolitan population'
     ],
     '7_mexicoCity' => [
-        'Mexico City' => '7 Mexico City Was once the capital of the Aztec Empire, known as Tenochtitlan'
+        'Mexico City',
+        '7 Mexico City capital of the Aztec Empire'
     ],
     '8_chicago' => [
-        'Chicago' => '8 Chicago The Home Insurance Building, built in 1884, is the first skyscraper in the world.'
+        'Chicago',
+        '8 Chicago first skyscraper.'
     ],
     '9_kuwaitCity' => [
-        'Kuwait City' => '9 Kuwait City Kuwait'
+        'Kuwait City',
+        '9 Kuwait City Kuwait'
     ]
     // '10_rome' => [
     // 	'city' => '10',
@@ -73,16 +82,18 @@ if ($useNewCity) {
 
 # Update/set the city in the session to check user answer in process.php
 $_SESSION['city'] = $city;
+// $_SESSION['city'] = $cities[$city];
 
 # Extract a clue and shuffle the city images for displaying in index-view.php
-$clue = $cities[$city];
-echo implode(" ", $cities[$city]);
-// var_dump($cities[$city][1]);
-
-// var_dump($clue);
+$clue = $cities[$city][1];
+$cityName = $cities[$city][0];
+// var_dump($city); # image or string of image name
+// var_dump($cities); # the entire array outputs
+// var_dump($cities[$city]); # array of one individual city name and clue
+// var_dump($cities[$city][0]); # string name of city
+var_dump($clue); # $cities[$city][1] clue only
 // $imagesShuffled = str_shuffle($city);
 // $imagesShuffled = shuffle($cities);
-// var_dump($cities);
 // $city = rand(1, 8);
 # Load the display
 require 'index-view.php';

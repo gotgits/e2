@@ -25,6 +25,8 @@
   
 [random images]https://perishablepress.com/drop-dead-easy-random-images-via-php/
 
+[array to string conversion]https://www.geeksforgeeks.org/how-to-convert-array-to-string-in-php/
+
 [Top 10 City Facts]https://ourplnt.com/city-facts/
 
 [City Facts for Kids]https://kids.kiddle.co/City

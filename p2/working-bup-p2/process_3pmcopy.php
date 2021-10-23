@@ -11,7 +11,7 @@ $haveAnswer = true;
 
 if ($answer == '') {
     $haveAnswer = false;
-} elseif ($answer == $$cities[$city][0]) {
+} elseif ($answer == $city) {
     $correct = true;
 } else {
     $correct = false;

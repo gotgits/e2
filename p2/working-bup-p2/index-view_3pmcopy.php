@@ -18,11 +18,11 @@
         <ol>
             <li></li>
         </ol>
-        <p>Mystery city: <img src="http://e2p2.metrognome.me/random/image_<?php
+        <p>Mystery city: <img src="http://e2p2.metrognome.me/random/image_<?php $city = rand(1, 8);
                                                                             echo $city; ?>.jpg" alt="[ City Image ]"
                 height="216" width="324" />
         </p>
-        <p>Clue: <span class='clue'><?php echo implode(" ", $clue) ?></span></p>
+        <p>Clue: <span class='clue'><?php echo $city ?></span></p>
 
         <label for='answer'>Your guess:</label>
         <input type='text' name='answer' id='answer'>
