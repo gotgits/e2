@@ -9,7 +9,6 @@ session_start();
 
 // var_dump($clue); # $cities[$city][1] clue only
 $cities = [
-    // 'cityName' => [
     'Seoul' => [
         '1_seoul',
         '1 Seoul – South Korea'
@@ -42,13 +41,13 @@ $cities = [
         '8_chicago',
         '8 Chicago first skyscraper.'
     ],
-    'Kuwait City9' => [
-        '_kuwaitCity',
+    'Kuwait City' => [
+        '9_kuwaitCity',
         '9 Kuwait City Kuwait'
     ],
     'Rome' => [
-        '10_rome',
-        '10 Rome Cats have protected status in this Italian city'
+        'a10_rome',
+        'a10 Rome Cats have protected status in this Italian city'
     ]
 ];
 
@@ -77,13 +76,14 @@ if (isset($_SESSION['results'])) {
 if ($useNewCity) {
     # Prevent using same city image that was used last
     while (!isset($city) or $city == $lastCity) {
-        // $city = array_rand($cities);
-        $city = array_rand($cities);
+        // $city = array_rand([$cities]); # hang up
+        $city = array_rand($cities); # correct answer intermittant, no pattern detected
+        # resolved with renaming images over 9 with prefix a
+        // $city = shuffle($cities); $no results Fatal error: Maximum execution time of 30 seconds exceeded in /var/www/e2/p2/index.php on line 81
     }
 } else {
     $city = $lastCity;
 }
-var_dump($city);
 
 # Update/set the city in the session to check user answer in process.php
 $_SESSION['city'] = $city;
@@ -91,8 +91,10 @@ $_SESSION['city'] = $city;
 
 # Extract a clue and shuffle the city images for displaying in index-view.php
 $clue = $cities[$city][1];
-$cityName = $cities[$city][0];
-
+// $cityName = $city;
+var_dump($city);
+var_dump($cities[$city][0]);
+var_dump($cities[$city][1]);
 // var_dump($cities[$city][0]); # string name of city
 // var_dump($city); # image or string of image name
 // var_dump($clue); # $cities[$city][1] clue only

@@ -1,0 +1,63 @@
+/* css for project 2 e2 */
+/* game simulation with user input */
+
+body {
+	font-size:  1.3rem;
+	margin: 1rem;
+	color: #4b0082;
+	background-color: #ffefd5;
+	font-family: 'Oxygen', Arial, sans-serif;
+}
+main {
+	padding: 2em;
+	/* background-image: url(5x5odd-trans.png); */
+	background-repeat: no-repeat;
+	background-position: center top;
+	margin: auto;
+	background-size: contain;
+}
+div {
+	width: 90%;
+	padding: 1em;
+	background-color: rgba(255,255,224,.3);
+}
+ul li {
+	list-style: none;
+	text-align: left;
+	line-height: 2em;
+}
+h1 {
+	color: #c71585;
+}
+
+h2, h3 {
+	color: #dc143c;
+}
+
+.image {
+	margin: .5em;
+	padding: 1em;
+}
+
+.results {
+	margin-top: 20px;
+	font-weight: bold;
+	font-size: 1.2em;
+	line-height: 2em;
+}
+
+.correct {
+	font-size: 1em;
+	font-weight: bolder;
+	letter-spacing: .1em;
+	color: #66cdaa;
+}
+
+.incorrect {
+	color: #ff4500;
+}
+
+.clue {
+	font-weight: bold;
+}
+

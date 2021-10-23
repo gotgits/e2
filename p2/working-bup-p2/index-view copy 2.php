@@ -19,8 +19,8 @@
             <li></li>
         </ol>
         <p>Mystery city: <img src="http://e2p2.metrognome.me/random/image_<?php
-                                                                            echo $city; ?>.jpg" alt="[ City Image ]"
-                height="216" width="324" />
+                                                                            echo $cities[$city][0]; ?>.jpg"
+                alt="[ City Image ]" height="216" width="324" />
         </p>
         <p>Clue: <span class='clue'><?php echo $clue ?></span></p>
 
@@ -33,7 +33,7 @@
         <?php if ($haveAnswer == false) { ?>
         Please select an answer.
         <?php } elseif ($correct) { ?>
-        <div class='correct'> ✔ Good guess, correct!</div>
+        <div class='correct'> ✔ Correct! Play another</div>
         <?php } else { ?>
         <div class='incorrect'> ✘ Incorrect city, try again.</div>
         <?php } ?>
