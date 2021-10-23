@@ -19,8 +19,8 @@
             <li></li>
         </ol>
         <p>Mystery city: <img src="http://e2p2.metrognome.me/random/image_<?php
-                                                                            echo $city; ?>.jpg" alt="[ City Image ]"
-                height="216" width="324" />
+                                                                            echo $cities[$city][0]; ?>.jpg"
+                alt="[ City Image ]" height="216" width="324" />
         </p>
         <p>Clue: <span class='clue'><?php echo $clue ?></span></p>
 

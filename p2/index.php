@@ -3,49 +3,53 @@ session_start();
 
 # Array of cities and clues to choose from
 
+// var_dump($cities[$city][0]); # image or string of image name
+
+// var_dump($city); # string name of city also the answer to create select options
+
+// var_dump($clue); # $cities[$city][1] clue only
 $cities = [
     // 'cityName' => [
-    '1_seoul' => [
-        'Seoul',
+    'Seoul' => [
+        '1_seoul',
         '1 Seoul – South Korea'
     ],
-    '2_geneva' => [
-        'Geneva',
+    'Geneva' => [
+        '2_geneva',
         '2 Geneva The Super Proton Synchrotron'
     ],
-    '3_dunedin' => [
-        'Dunedin',
+    'Dunedin' => [
+        '3_dunedin',
         '3 Dunedin steepest street'
     ],
-    '4_reykjavik' => [
-        'Reykjavik',
+    'Reykjavik' => [
+        '4_reykjavik',
         '4 Reykjavik Iceland'
     ],
-    '5_jericho' => [
-        'Jericho',
+    'Jericho' => [
+        '5_jericho',
         '5 Jericho Palestine'
     ],
-    '6_toyko' => [
-        'Toyko',
+    'Toyko' => [
+        '6_toyko',
         '6 Toyko largest metropolitan population'
     ],
-    '7_mexicoCity' => [
-        'Mexico City',
+    'Mexico City' => [
+        '7_mexicoCity',
         '7 Mexico City capital of the Aztec Empire'
     ],
-    '8_chicago' => [
-        'Chicago',
+    'Chicago' => [
+        '8_chicago',
         '8 Chicago first skyscraper.'
     ],
-    '9_kuwaitCity' => [
-        'Kuwait City',
+    'Kuwait City9' => [
+        '_kuwaitCity',
         '9 Kuwait City Kuwait'
+    ],
+    'Rome' => [
+        '10_rome',
+        '10 Rome Cats have protected status in this Italian city'
     ]
-    // '10_rome' => [
-    // 	'city' => '10',
-    // 	'clue' => '10 Rome Cats have protected status in this Italian city'
-    // ]
-    // ]
 ];
 
 # Default values – assumes a refreshed session
@@ -79,6 +83,7 @@ if ($useNewCity) {
 } else {
     $city = $lastCity;
 }
+var_dump($city);
 
 # Update/set the city in the session to check user answer in process.php
 $_SESSION['city'] = $city;
@@ -87,11 +92,12 @@ $_SESSION['city'] = $city;
 # Extract a clue and shuffle the city images for displaying in index-view.php
 $clue = $cities[$city][1];
 $cityName = $cities[$city][0];
-// var_dump($city); # image or string of image name
-// var_dump($cities); # the entire array outputs
-// var_dump($cities[$city]); # array of one individual city name and clue
+
 // var_dump($cities[$city][0]); # string name of city
-var_dump($clue); # $cities[$city][1] clue only
+// var_dump($city); # image or string of image name
+// var_dump($clue); # $cities[$city][1] clue only
+
+
 // $imagesShuffled = str_shuffle($city);
 // $imagesShuffled = shuffle($cities);
 // $city = rand(1, 8);
