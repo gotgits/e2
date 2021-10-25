@@ -1,13 +1,7 @@
 <?php
+
 session_start();
 
-# Array of cities and clues to choose from
-
-// var_dump($cities[$city][0]); # image or string of image name
-
-// var_dump($city); # string name of city also the answer to create select options
-
-// var_dump($clue); # $cities[$city][1] clue only
 $cities = [
     'Seoul' => [
         '1_seoul',
@@ -77,9 +71,9 @@ if ($useNewCity) {
     # Prevent using same city image that was used last
     while (!isset($city) or $city == $lastCity) {
         // $city = array_rand([$cities]); # hang up
-        $city = array_rand($cities); # correct answer intermittant, no pattern detected
-        # resolved with renaming images over 9 with prefix a
-        // $city = shuffle($cities); $no results Fatal error: Maximum execution time of 30 seconds exceeded in /var/www/e2/p2/index.php on line 81
+        $city = array_rand($cities);
+        # this only works accurately in firefox with http and not https
+        # chrome produces consistent "incorrect answer" results even with http
     }
 } else {
     $city = $lastCity;
@@ -87,21 +81,8 @@ if ($useNewCity) {
 
 # Update/set the city in the session to check user answer in process.php
 $_SESSION['city'] = $city;
-// $_SESSION['city'] = $cities[$city];
 
 # Extract a clue and shuffle the city images for displaying in index-view.php
 $clue = $cities[$city][1];
-// $cityName = $city;
-var_dump($city);
-var_dump($cities[$city][0]);
-var_dump($cities[$city][1]);
-// var_dump($cities[$city][0]); # string name of city
-// var_dump($city); # image or string of image name
-// var_dump($clue); # $cities[$city][1] clue only
-
-
-// $imagesShuffled = str_shuffle($city);
-// $imagesShuffled = shuffle($cities);
-// $city = rand(1, 8);
 # Load the display
 require 'index-view.php';

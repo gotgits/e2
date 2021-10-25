@@ -2,48 +2,56 @@
 /* game simulation with user input */
 
 body {
-	font-size:  1.3rem;
+	font-size:  .8rem;
 	margin: 1rem;
 	color: #4b0082;
 	background-color: #ffefd5;
 	font-family: 'Oxygen', Arial, sans-serif;
 }
 main {
-	padding: 2em;
-	/* background-image: url(5x5odd-trans.png); */
-	background-repeat: no-repeat;
-	background-position: center top;
-	margin: auto;
-	background-size: contain;
+	margin: 0 auto;
+	width: 90%;
 }
 div {
 	width: 90%;
+	margin: 0 auto;
 	padding: 1em;
 	background-color: rgba(255,255,224,.3);
+	border-radius: 40px;
 }
 ul li {
 	list-style: none;
 	text-align: left;
-	line-height: 2em;
+	line-height: .7em;
 }
 h1 {
 	color: #c71585;
+	font-size: 1.2em;
+	line-height: 1.3em;
 }
 
-h2, h3 {
+h2{
 	color: #dc143c;
+	font-size: .9rem;
+	line-height: .8em;
+}
+h3 {
+	color: #a32cc4;
+	margin-bottom: .02em;
+	font-size: .9rem;
+	text-transform: uppercase;
 }
 
 .image {
-	margin: .5em;
-	padding: 1em;
+	padding: .5em;
+	border-radius: 35px 10px;
 }
 
 .results {
-	margin-top: 20px;
+	margin-top: 1em;
 	font-weight: bold;
 	font-size: 1.2em;
-	line-height: 2em;
+	line-height: 1.2em;
 }
 
 .correct {
@@ -59,5 +67,6 @@ h2, h3 {
 
 .clue {
 	font-weight: bold;
+	color: #a32cc4;
 }
 
