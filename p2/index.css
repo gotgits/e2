@@ -1,6 +1,7 @@
-/* css for project 2 e2 */
-/* game simulation with user input */
-
+/* css e2p2 What City? */
+html {
+	font-size: 1rem;
+}
 body {
 	font-size:  .8rem;
 	margin: 1rem;
@@ -10,13 +11,13 @@ body {
 }
 main {
 	margin: 0 auto;
-	width: 90%;
+	padding: .5em;
 }
 div {
-	width: 90%;
 	margin: 0 auto;
-	padding: 1em;
-	background-color: rgba(255,255,224,.3);
+	width: 23rem;
+	padding: 1.5em;
+	background-color: rgba(255,255,224,.5);
 	border-radius: 40px;
 }
 ul li {
@@ -24,13 +25,17 @@ ul li {
 	text-align: left;
 	line-height: .7em;
 }
+li {
+	padding-left: .3em;
+}
 h1 {
 	color: #c71585;
 	font-size: 1.2em;
 	line-height: 1.3em;
+	text-align: center;
 }
 
-h2{
+h2 {
 	color: #dc143c;
 	font-size: .9rem;
 	line-height: .8em;
@@ -43,12 +48,15 @@ h3 {
 }
 
 .image {
-	padding: .5em;
-	border-radius: 35px 10px;
+	margin-top: .2em;
+	padding: 1em;
+	width: 324px;
+	height: 216px;
+	border-radius: 30px 10px;
 }
 
 .results {
-	margin-top: 1em;
+	width: max-content;
 	font-weight: bold;
 	font-size: 1.2em;
 	line-height: 1.2em;
@@ -69,4 +77,3 @@ h3 {
 	font-weight: bold;
 	color: #a32cc4;
 }
-

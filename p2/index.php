@@ -5,49 +5,49 @@ session_start();
 $cities = [
     'Seoul' => [
         '1_seoul',
-        '1 Seoul – South Korea'
+        'A global hub for tech and innovation, and is reported to have the fastest average internet speed in the world.'
     ],
     'Geneva' => [
         '2_geneva',
-        '2 Geneva The Super Proton Synchrotron'
+        'The Super Proton Synchrotron (SPS) is the second-largest machine in the CERN accelerator complex.'
     ],
     'Dunedin' => [
         '3_dunedin',
-        '3 Dunedin steepest street'
+        'Home of steepest residential street in the world at 19 degrees'
     ],
     'Reykjavik' => [
         '4_reykjavik',
-        '4 Reykjavik Iceland'
+        'Safe enough that babies can sit alone in the open to let them enjoy the fresh air and sunlight while parents shop.'
     ],
     'Jericho' => [
         '5_jericho',
-        '5 Jericho Palestine'
+        'Sitting at 258 meters (846 feet) below sea level, this is the lowest city in the world.'
     ],
     'Toyko' => [
         '6_toyko',
-        '6 Toyko largest metropolitan population'
+        'Once a small fishing village named Edo, this capital city is the most populous city in the world today (by the metropolitan area).'
     ],
     'Mexico City' => [
         '7_mexicoCity',
-        '7 Mexico City capital of the Aztec Empire'
+        'Was once the capital of the Aztec Empire, known as Tenochtitlan.'
     ],
     'Chicago' => [
         '8_chicago',
-        '8 Chicago first skyscraper.'
+        'The Home Insurance Building, built in 1884, was the first skyscraper in the world, it stood only 42 meters tall, with 10 floors.'
     ],
     'Kuwait City' => [
         '9_kuwaitCity',
-        '9 Kuwait City Kuwait'
+        'Most of its water resource comes from groundwater as it has no permanent rivers or lakes, relying on an inflow of lateral underflow from its nearest neighbor.'
     ],
     'Rome' => [
         'a10_rome',
-        'a10 Rome Cats have protected status in this Italian city'
+        'Starting in 1991, cats have protected status, anywhere with at least 5 cats is a natural urban habitat.'
     ]
 ];
 
 # Default values – assumes a refreshed session
 $useNewCity = true;
-// $cityName = array($cities['cityName']);
+
 $lastCity = '';
 
 # If there is input received from user, results will show
@@ -70,7 +70,6 @@ if (isset($_SESSION['results'])) {
 if ($useNewCity) {
     # Prevent using same city image that was used last
     while (!isset($city) or $city == $lastCity) {
-        // $city = array_rand([$cities]); # hang up
         $city = array_rand($cities);
         # this only works accurately in firefox with http and not https
         # chrome produces consistent "incorrect answer" results even with http
@@ -82,7 +81,7 @@ if ($useNewCity) {
 # Update/set the city in the session to check user answer in process.php
 $_SESSION['city'] = $city;
 
-# Extract a clue and shuffle the city images for displaying in index-view.php
+# Extract a clue and city image from array for displaying in index-view.php
 $clue = $cities[$city][1];
 # Load the display
 require 'index-view.php';
