@@ -1,26 +1,30 @@
+  
 
 #  Project 2
-###  What City?
+
+##  What City?
+
+  
 
 + By: *Rose Mikan*
 
-+  [http://e2p2.metrognome.me](http://e2p2.metrognome.me)
 
-
-##  Game planning
-
-  + Use the *Word Scramble* example from class.
-  + Replace the scrambled word selection with random images for the guessing.
-  + The concept for game will be facts about cities around the globe.
-  + Create user input to interact with the images and clues/facts.
-  
++  [e2p2.metrognome.me](http://e2p2.metrognome.me)
+ 
 
 ##  Outside resources
 
   
+#### Coding Resources
+
 [random images](https://perishablepress.com/drop-dead-easy-random-images-via-php/)
 
+  
+
 [array to string conversion](https://www.geeksforgeeks.org/how-to-convert-array-to-string-in-php/)
+
+  
+#### Information for clues
 
 [Top 10 City Facts](https://ourplnt.com/city-facts/)
 
@@ -32,20 +36,57 @@
 
 [Baldwin Street](https://en.wikipedia.org/wiki/Baldwin_Street)
 
-[CERN particle accelerators](https://home.cern/)
+[CERN particle accelerators](https://home.cern/science/accelerators/accelerator-complex)
 
-[Pexels royalty free images](https://www.pexels.com/)
-> Individual image attributions:
-  >>[Photo by Ethan Brooke from Pexels](https://www.pexels.com/photo/bird-s-eye-view-photography-of-lighted-buildings-2376710/)
-  >>[Photo by Ramaz Bluashvili from Pexels](https://www.pexels.com/photo/industry-warehouse-inside-shopping-6855582/)
-  >>[Dunedin New Zealand](https://upload.wikimedia.org/wikipedia/commons/a/af/Baldwinstreet.jpg)
-  >>[Photo by stein egil liland from Pexels](https://www.pexels.com/photo/brown-concrete-building-under-gray-clouds-6946281/)
-  >>[Photo by Yusuf, Musa Zanoun from Pexel](https://www.pexels.com/photo/city-landscape-building-architecture-8660631/)
-  >>[Photo by Charmaine from Pexels](https://www.pexels.com/photo/people-crossing-the-road-during-nighttime-5182100/)
-  >>[Photo by Ivon Gorgonio from Pexels](https://www.pexels.com/photo/people-walking-near-white-and-brown-concrete-building-3720115/)
-  >>[Photo by Chait Goli from Pexels](https://www.pexels.com/photo/architectural-photography-of-tunnel-2088233/)
-  >>[Photo by Shahbaz Hussain Shah from Pexels](https://www.pexels.com/photo/city-skyline-during-night-time-4664370/)
+[Facts about New Zealand](https://www.civitatis.com/blog/en/facts-about-new-zealand/)
+
+
+#### Individual image attributions:
+
+[Photo by Ethan Brooke from Pexels](https://www.pexels.com/photo/bird-s-eye-view-photography-of-lighted-buildings-2376710/)
+
+  
+
+[Photo by Ramaz Bluashvili from Pexels](https://www.pexels.com/photo/industry-warehouse-inside-shopping-6855582/)
+
+  
+
+[Dunedin New Zealand](https://upload.wikimedia.org/wikipedia/commons/a/af/Baldwinstreet.jpg)
+
+  
+
+[Photo by stein egil liland from Pexels](https://www.pexels.com/photo/brown-concrete-building-under-gray-clouds-6946281/)
+
+  
+
+[Photo by Yusuf, Musa Zanoun from Pexel](https://www.pexels.com/photo/city-landscape-building-architecture-8660631/)
+
+  
+
+[Photo by Charmaine from Pexels](https://www.pexels.com/photo/people-crossing-the-road-during-nighttime-5182100/)
+
+  
+
+[Photo by Ivon Gorgonio from Pexels](https://www.pexels.com/photo/people-walking-near-white-and-brown-concrete-building-3720115/)
+
+  
+
+[Photo by Chait Goli from Pexels](https://www.pexels.com/photo/architectural-photography-of-tunnel-2088233/)
+
+  
+
+[Photo by Shahbaz Hussain Shah from Pexels](https://www.pexels.com/photo/city-skyline-during-night-time-4664370/)
+
+  
+
+[Photo by umit ozbek from Pexels](https://www.pexels.com/photo/white-and-black-long-fur-cat-140134/)
+
+[Gray and Black Goddess Temple](https://www.pexels.com/photo/gray-and-black-goddess-temple-157248/)
+
+  
 
 ##  Notes for instructor
 
- After exhaustive attempts to refine my Project 1 game to accumulate sums in progressive order to emulate taking turns on a board going forward with a dice roll (which seemed like such an ordinary task), without sufficient results, I realized that understanding the purpose of Project 2 Form Processing with user input was still not being addressed. Therefore, I analyzed your inspiring *Word Scramble* game and decided working within this structure would be a better use of the time left. This offered many unique troubleshooting challenges of its own! One of which is that I can still only get a consistent accurate correct answer result in the Firefox browser. The other was the naming of the images to avoid interfering with the random logic matching images with the array key value items.
+  
+
+After exhaustive attempts to refine my Project 1 game to accumulate sums in progressive order to emulate taking turns on a board going forward with a dice roll (which seemed like such an ordinary task), without sufficient results, I realized that understanding the purpose of Project 2 Form Processing with user input was still not being addressed. Therefore, I studied your inspiring *Word Scramble* game and decided working within this structure would be a better use of the time left. This offered many unique troubleshooting challenges of its own. One of which is that I can still only get a consistent accurate correct answer result in the Firefox browser. I experiemented with adding selected to my select menu, that made Safari work, but broke Firefox, and Chrome remained inaccurate.

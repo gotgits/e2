@@ -59,10 +59,9 @@ if (isset($_SESSION['results'])) {
     $correct = $results['correct'];
     $lastCity = $_SESSION['city'];
 
-    # If answered correctly, a new city image will show
     $useNewCity = $correct;
 
-    #Clear the results. If the user refreshes/returns, old results are not shown
+    #Clear the results. 
     $_SESSION['results'] = null;
 }
 
@@ -73,6 +72,7 @@ if ($useNewCity) {
         $city = array_rand($cities);
         # this only works accurately in firefox with http and not https
         # chrome produces consistent "incorrect answer" results even with http
+        # safari produces correct results after initial input which has incorrect results even with correct answer.
     }
 } else {
     $city = $lastCity;

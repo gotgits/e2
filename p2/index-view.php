@@ -32,7 +32,7 @@
                 <p>Clue: <span class='clue'><?php echo $clue ?></span></p>
 
                 <label for='answer'>Guess what city this is</label>
-                <select name='answer' id='answer'>
+                <select id='answer' name='answer'>
                     <option>Seoul</option>
                     <option>Geneva</option>
                     <option>Dunedin</option>
