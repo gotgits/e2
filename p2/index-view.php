@@ -16,7 +16,6 @@
             <form method='POST' action='process.php'>
                 <h1>Project 2 – What City?</h1>
                 <h2>Instructions</h2>
-                <p>Currently this only works accurately in the Firefox browser.</p>
                 <ol>
                     <li>Guess the name of this city based on the image and supplied clue by selecting from the
                         dropdown&nbsp;menu. </li>
@@ -25,10 +24,8 @@
                     <li>Keep guessing if your answer is incorrect, or refresh for another&nbsp;city.</li>
                 </ol>
                 <h3>Mystery city:</h3>
-                <img class="image" src="http://e2p2.metrognome.me/random/image_<?php echo $cities[$city][0]; ?>.jpg"
-                    alt="[ City Image ]" height="216" width="324" />
-                <!-- Chrome browser img src requires hard coding with http to display,
-                Firefox browser relative url displays images -->
+                <img class="image" src="/random/image_<?php echo $cities[$city][0]; ?>.jpg" alt="[ City Image ]"
+                    height="216" width="324" />
                 <p>Clue: <span class='clue'><?php echo $clue ?></span></p>
 
                 <label for='answer'>Guess what city this is</label>
@@ -51,7 +48,7 @@
                 <?php if ($haveAnswer == false) { ?>
                 Please select an answer.
                 <?php } elseif ($correct) { ?>
-                <p class='correct'> ✔ Correct! Guess this one!</p>
+                <p class='correct'> ✔ Correct! Guess this city!</p>
                 <?php } else { ?>
                 <p class='incorrect'> ✘ Incorrect city, try again.</p>
                 <?php } ?>

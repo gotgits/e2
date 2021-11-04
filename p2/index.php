@@ -70,9 +70,6 @@ if ($useNewCity) {
     # Prevent using same city image that was used last
     while (!isset($city) or $city == $lastCity) {
         $city = array_rand($cities);
-        # this only works accurately in firefox with http and not https
-        # chrome produces consistent "incorrect answer" results even with http
-        # safari produces correct results after initial input which has incorrect results even with correct answer.
     }
 } else {
     $city = $lastCity;
