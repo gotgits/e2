@@ -1,3 +1,11 @@
-<h1>Support & Contact Info</h1>
+@extends('templates/master')
 
-Have questions? Email us at {{ $email }}.
+@section('title')
+    Support & Contact Info
+@endsection
+
+@section('content')
+    <h2>Support & Contact Info</h2>
+
+    Have questions? Email us at {{ $email }}.
+@endsection
