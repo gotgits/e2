@@ -6,7 +6,7 @@
 
 @section('content')
     <h2>All Products</h2>
-
+    {{-- comments with blade syntax will not show on the page rendered --}}
     {{-- @foreach ($products as $product)
         {{ $product['name'] }}
     @endforeach --}}
