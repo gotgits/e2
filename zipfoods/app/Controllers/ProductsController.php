@@ -4,33 +4,44 @@ namespace App\Controllers;
 use App\Products;
 
 class ProductsController extends Controller
-{
+{   
+    private $productsObj;
+
+    # Create a construct method to set up a productsObj property that can be used across different methods
+    public function __construct($app)
+    {
+        parent::__construct($app);
+        
+        $this->productsObj = new Products($this->app->path('database/products.json'));
+    }
     public function index()
     {
         # Docs App methods
         $productsObj = new Products($this->app->path('/database/products.json'));
         $products = $productsObj->getAll();
+        return $this->app->view('products/index', ['products' => $products]);
+
         // dd($products);
         // var_dump($productsObj);
         # Docs Global helpers
         // dump($this->app->path('/database/products.json'));
         // dd($productsObj);
-        return $this->app->view('products/index', ['products' => $products]);
-                // return 'This is the products index...';      
+        // return 'This is the products index...';      
     }
     
-    public function show()
+     public function show()
     {
-    //    dump($_GET['sku']); super global, 
-        # better to use framework method more utility with this param method
         $sku = $this->app->param('sku');
+       
+        $product = $this->productsObj->getBySku($sku);
 
-        $productsObj = new Products($this->app->path('/database/products.json'));
+        if (is_null($product)) {
+            return $this->app->view('errors/404');
+        }
 
-        $product = $productsObj->getBySku($sku);
-        // dump($product);
-        return $this->app->view('products/show', ['product' => $product]);
-
-    }  
+        return $this->app->view('products/show', [
+            'product' => $product
+        ]);
+    }
 }
 // http://e2zipfoods.metrognome.me/product?sku=driscolls-strawberries
