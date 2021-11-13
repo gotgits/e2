@@ -19,6 +19,10 @@ class AppController extends Controller
     {
         return $this->app->view('about', ['about' => 'about...']);
     }
+    public function z()
+    {
+        return $this->app->view('x/y/z');
+    }
     // public function missing()
     // {
     //     return $this->app->view('/products/missing', ['missing' => 'products/missing']);

@@ -30,17 +30,26 @@ class ProductsController extends Controller
     public function show()
     {
         $sku = $this->app->param('sku');
-        // $productsObj = new Products($this->app->path('/database/products.json'));
+        # above is terse version for an absolute path instance, using the param method to retrieve route parameters/query string values:
+        # this is the absolute path:
+        // $productsObj = new Products($this->app->path('/database/products.json'))
+        # which replaces a relative path:
+        //  $productsObj = new Products('../database/products.json');
        
         $product = $this->productsObj->getBySku($sku);
 
+
         if (is_null($product)) {
-            return $this->app->view('products/missing', ['missing'=>$missing]);
+            return $this->app->view('products/missing');
+            // dd('products/missing');
             # missing product – customized this page or a default  was errors/404
         }
-        if (is_null($product)) {
-            return $this->app->view('errors/404'); # customize this page or a default missing product page
-        }
+        // if (is_null($product)) {
+        //     return $this->app->view('products/missing', ['missing'=>$missing]);
+
+        // if (is_null($product)) {
+        //     return $this->app->view('errors/404'); # customize this page or a default missing product page
+        // }
 
         return $this->app->view('products/show', [
             'product' => $product
