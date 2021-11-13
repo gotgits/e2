@@ -9,7 +9,7 @@ class AppController extends Controller
      */
     public function index()
     {
-       return $this->app->view('index');
+        return $this->app->view('index');
     }
     public function contact()
     {
@@ -19,4 +19,8 @@ class AppController extends Controller
     {
         return $this->app->view('about', ['about' => 'about...']);
     }
+    // public function missing()
+    // {
+    //     return $this->app->view('/products/missing', ['missing' => 'products/missing']);
+    // }
 }

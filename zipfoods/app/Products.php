@@ -6,6 +6,7 @@ class Products
 {
     # Properties
     public $products = [];
+    public $missing = [];
 
     # Methods
     public function __construct($dataSource)
@@ -13,6 +14,13 @@ class Products
         $json = file_get_contents($dataSource);
         $this->products = json_decode($json, true);
     }
+    // public function __construct($app)
+    // #Invoke the parent constructor #error message can not redeclare App\Products::__construct()
+    // {
+    //     parent::__construct($app);
+    //     $missing = array_search($sku, getById($this->missing, 'sku', 'id'));
+    //     return $this->redirect('products/missing');
+    // }
 
     public function getAll()
     {
