@@ -26,6 +26,12 @@ class ProductsController extends Controller
         // dd($productsObj);
         // return 'This is the products index...';
     }
+
+    // public function missing()
+    // {
+    //     $missing = $this->productsObj->is_null($product);
+
+    // }
     
     public function show()
     {
@@ -35,21 +41,14 @@ class ProductsController extends Controller
         // $productsObj = new Products($this->app->path('/database/products.json'))
         # which replaces a relative path:
         //  $productsObj = new Products('../database/products.json');
+        # dump($$_GET['sku]);
+        # dump($this->app->param('sku'));
        
         $product = $this->productsObj->getBySku($sku);
 
-
         if (is_null($product)) {
-            return $this->app->view('products/missing');
-            // dd('products/missing');
-            # missing product – customized this page or a default  was errors/404
+            return $this->app->view('products/missing'); # customize this page or a default missing product page
         }
-        // if (is_null($product)) {
-        //     return $this->app->view('products/missing', ['missing'=>$missing]);
-
-        // if (is_null($product)) {
-        //     return $this->app->view('errors/404'); # customize this page or a default missing product page
-        // }
 
         return $this->app->view('products/show', [
             'product' => $product

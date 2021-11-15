@@ -2,6 +2,7 @@
 
 @section('title')
     y title y is directory index.blade.php returns page 404
+    not set up in routes.php
 @endsection
 
 @section('content')

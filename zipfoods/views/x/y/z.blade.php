@@ -1,13 +1,15 @@
 @extends('templates/master')
 
 @section('title')
-x/y title x/y/z
+    x/y/z
 @endsection
 
 @section('content')
-<h2>/x/y/z.php </h2>
+    <h2>views/x/y/z</h2>
 
-<p>
-    x/y/z.php
-</p>
+    <p>
+        x/y/z.blade.php
+    </p>
 @endsection
+
+{{-- must add this to routes.php to work '/x/y/z' => ['AppController', 'z'] --}}
