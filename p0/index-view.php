@@ -13,7 +13,7 @@
         <h3>Results</h3>
         <?php foreach ($results as $rounds => $details) { ?>
         <dl>
-            <dt>Round # <?php echo $rounds ?></li>
+            <dt>Round # <?php echo $rounds +1 ?></li>
             <dd class="rounds">Player gets:
                 <?php echo $details['playerTurn']." &rarr; Board position ".$details['playerSum'] ?>
                 </li>
