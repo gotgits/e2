@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+{{-- add the variable for reviewSaved from the ProductsController with an alert message and class from Bootstrap css --}} 
     @if ($reviewSaved)
         <div class='alert alert-success'>Thank you, your review was submitted!</div>
     @endif
@@ -36,7 +37,7 @@
         <div class='form-group'>
             <label for='review'>Review</label>
             <textarea name='review' id='review' class='form-control'>{{ $app->old('review') }}</textarea>
-            (Min: 200 characters)
+            (Min: 200 characters / Max: 300 characters)
         </div>
 
         <button type='submit' class='btn btn-primary'>Submit Review</button>

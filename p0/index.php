@@ -35,14 +35,14 @@
 
         // }
         // When goal is met Winner
-        if ($winner = $playerSum >= $goal || $competitorSum >= $goal) {
+        if ($winner = $playerSum >= $goal or $competitorSum >= $goal) {
             if ($playerSum >= $goal) {
                 $winner = 'Player';
             } else {
                 $winner = 'Competitor';
             }
         }
-        $round = count($rounds) +1;
+        $round = count($rounds)+1;
             array_push(
                 $results,
                     array(
