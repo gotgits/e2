@@ -1,0 +1,145 @@
+/*----------------------------------------------------
+VARIABLES
+-----------------------------------------------------*/
+:root {
+	--radius: 5px;
+
+	--sans-serif-font: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	--serif-font: Georgia, 'Times New Roman', Times, serif;
+
+	/* https://clrs.cc/ */
+	--blue: #0074d9;
+	--light-blue: #cae9fb;
+	--teal: #39cccc;
+	--green: #2ecc40;
+
+	--olive: #3d9970;
+
+	--yellow: #ffdc00;
+	--orange: #ff851b;
+	--red: #ff4136;
+
+	--white: #ffffff;
+	--silver: #dddddd;
+	--gray: #aaaaaa;
+	--black: #111111;
+}
+
+/*----------------------------------------------------
+MAIN LAYOUT
+-----------------------------------------------------*/
+/* universal box-sizing */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+html {
+    font-size: 1rem;
+    /* Have the scroll bars always on so there's not a shift in the layout
+    when going from a non-scrolling page to a scrolling-page */
+	overflow-y: scroll;
+}
+body {
+	font-size: 1.2rem;
+	/* margin: 1rem; */
+	color: #4b0082;
+	background-color: #ffefd5;
+	font-family: 'Oxygen', Arial, sans-serif;
+}
+main {
+	margin: 10px auto;
+	width: 600px;
+}
+div {
+	margin: 0 auto;
+	padding: 1.5em;
+	background-color: rgba(255, 255, 224, .5);
+	border-radius: 20px;
+}
+
+h1 {
+	color: #c71585;
+	text-align: center;
+}
+
+h2 {
+	color: #dc143c;
+}
+h3 {
+	color: #a32cc4;
+	margin-bottom: .02em;
+	text-transform: uppercase;
+}
+
+.image {
+	margin-top: .2em;
+	padding: 1em;
+	width: 324px;
+	height: 324px;
+	border-radius: 5px;
+}
+
+.results {
+	width: max-content;
+	font-weight: bold;
+	font-size: 1.2em;
+	line-height: 1.2em;
+}
+.winner {
+	color: green;
+	font-size: 2rem;
+}
+.positions {
+	color: magenta;
+}
+.rounds {
+	padding: 1px;
+}
+
+dl.rounds {
+	font-weight: bold;
+}
+/* dd {
+	margin-left: 1px;
+} */
+dd,
+dt {
+	line-height: 1.5;
+	margin-left: 0;
+}
+
+dt {
+	font-weight: bold;
+}
+
+#logo {
+	width: 250px;
+}
+/*----------------------------------------------------
+FORMS
+-----------------------------------------------------*/
+input,
+textarea {
+	font-size: 2.4rem;
+}
+
+.form-control,
+.btn {
+	font-size: 1.4rem;
+}
+
+.btn {
+	margin: 10px;
+}
+
+label {
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 1.2rem;
+	margin-top: 5px;
+}
+
+ul.error {
+	list-style-type: none;
+}

@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-{{-- add the variable for reviewSaved from the ProductsController with an alert message and class from Bootstrap css --}} 
+    {{-- add the variable for reviewSaved from the ProductsController with an alert message and class from Bootstrap css --}}
     @if ($reviewSaved)
         <div class='alert alert-success'>Thank you, your review was submitted!</div>
     @endif
@@ -28,6 +28,7 @@
 
     <form method='POST' id='product-review' action='/products/save-review'>
         <h3>Review {{ $product['name'] }}</h3>
+        <input type='hidden' name='product_id' value='{{ $product['id'] }}'>
         <input type='hidden' name='sku' value='{{ $product['sku'] }}'>
         <div class='form-group'>
             <label for='name'>Name</label>

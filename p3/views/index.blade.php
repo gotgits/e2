@@ -1,13 +1,17 @@
-@extends('templates.master')
+@extends('templates/master')
 
 @section('title')
-    {{ $welcome }}
+    {{ $app->config('app.name') }}
 @endsection
 
 @section('content')
-    
-    <h2>{{ $welcome }}</h2>
+    <h2>Take turns to reach the end before your opponent (computer moves)</h2>
 
-    <p>Hello and welcome! This is the boilerplate splash page for my application built with  <a href='https://github.com/susanBuck/e2framework'>e2framework</a>.</p>
+    <p>
+        {{ $app->config('app.name') }} Race to the goal
+    </p>
 
+    <p>
+        <a href='/'>Return to Game</a>
+    </p>
 @endsection

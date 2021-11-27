@@ -8,10 +8,10 @@ class AppController extends Controller
      */
     public function index()
     {
-        $welcomes = ['Welcome', 'Aloha', 'Welkom', 'Bienvenidos', 'Bienvenu', 'Welkomma'];
+        $begin = ['Begin', 'Start', 'Which Player Goes First'];
         
         return $this->app->view('index', [
-            'welcome' => $welcomes[array_rand($welcomes)]
+            'begin' => $begin[array_rand($begin)]
         ]);
     }
 }

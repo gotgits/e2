@@ -26,9 +26,7 @@
         }
         // Individual round results
             // echo "Player turn $playerTurn Player Round Sum: $playerSum <br>
-            // Competitor turn $competitorTurn Competitor Round Sum: $competitorSum<br><br>";
-            
-    
+            // Competitor turn $competitorTurn Competitor Round Sum: $competitorSum<br><br>";  
 
         // Round results of both players
         // $round[]=$results;

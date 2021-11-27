@@ -5,53 +5,30 @@ use App\Products;
 
 class ProductsController extends Controller
 {
-    private $productsObj;
-    # Create a construct method to set up a productsObj property that can be used across different methods
-    public function __construct($app)
-    {
-        parent::__construct($app);
-        $this->productsObj = new Products($this->app->path('database/products.json'));
-    }
     public function index()
     {
         # Docs App methods
-        // $productsObj = new Products($this->app->path('/database/products.json'));
-        $products = $this->productsObj->getAll();
-        return $this->app->view('products/index', ['products' => $products]);
 
-        // dd($products);
-        // var_dump($productsObj);
-        # Docs Global helpers
-        // dump($this->app->path('/database/products.json'));
-        // dd($productsObj);
-        // return 'This is the products index...';
+        $products = $this->app->db()->all('products'); # parameter for 
+
+        return $this->app->view('products/index', ['products' => $products]);
     }
 
-    // public function missing()
-    // {
-    //     $missing = $this->productsObj->is_null($product);
-
-    // }
-    
     public function show()
-    {
+    {    # a terse version for an absolute path instance, 
+         # using the param method to retrieve route parameters/query string values:
         $sku = $this->app->param('sku');
-        
-        # above is terse version for an absolute path instance, using the param method to retrieve route parameters/query string values:
-        # this is the absolute path:
-        // $productsObj = new Products($this->app->path('/database/products.json'))
-        # which replaces a relative path:
-        //  $productsObj = new Products('../database/products.json');
-        # dump($$_GET['sku]);
-        # dump($this->app->param('sku'));
         
         if (is_null($sku)) {
             $this->app->redirect('/products');
         }
-        $product = $this->productsObj->getBySku($sku);
-
-        if (is_null($product)) {
+         # Signature //$app->db()->findByColumn(string $table, string $column, string $operator, mixed $value)
+         $productQuery = $this->app->db()->findByColumn('products', 'sku', '=', $sku);
+         
+        if (empty($productQuery)) {
             return $this->app->view('products/missing');
+        } else {
+            $product = $productQuery[0];
         }
         # accessing the data from variable in the saveReview method below
         $reviewSaved = $this->app->old('reviewSaved');
@@ -59,84 +36,90 @@ class ProductsController extends Controller
         return $this->app->view(
             'products/show',
             ['product' => $product,
-            'reviewSaved' => $reviewSaved
-        ]
-        );
+            'reviewSaved' => $reviewSaved,
+            'new' => $new
+        ]);
     }
     public function saveReview()
-    {
-        # Set up all the variables we need to make a connection
-        $host = $this->app->env('DB_HOST');
-        $database = $this->app->env('DB_NAME');
-        $username = $this->app->env('DB_USERNAME');
-        $password = $this->app->env('DB_PASSWORD');
-        
-        # DSN (Data Source Name) string
-        # below comes directly from https://www.php.net/manual/en/book.pdo.php
-        # contains the information required to connect to the database
-        $dsn = "mysql:host=$host;dbname=$database;charset=utf8mb4";
-
-        # Driver-specific connection options
-        $options = [
-            \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-            \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
-            \PDO::ATTR_EMULATE_PREPARES => false,
-        ];
-
-        try {
-            # Create a PDO instance representing a connection to a database
-            $pdo = new \PDO($dsn, $username, $password, $options);
-        } catch (\PDOException $e) {
-            throw new \PDOException($e->getMessage(), (int)$e->getCode());
-        }
-
-        // return 'Save review test...';
-        # validation code should be at top, before retrieving data
+    {     
         $this->app->validate([
             'sku' => 'required',
+            'product_id' => 'required',
             'name' => 'required',
-            'review' => 'required|minLength:200|maxLength:300'
+            'review' => 'required|minLength:200'
         ]);
-
- 
-
+        # If the above validation checks fail
+        # The user is redirected back to where they came from (/product)
+        # None of the code that follows will be executed
+        # if using $_GET or $POST superglobals, //dump($_POST['sku']);
+        # instead use input() from the framework, allows for second parameter
+        $product_id = $this->app->input('product_id');
+        $sku = $this->app->input('sku');
+        $name = $this->app->input('name');
+        $review = $this->app->input('review');
+        
+        # Signature: //$app->db()->insert(string $table, array $data)
+        # the statement below replaces 15 lines of code!
+        $this->app->db()->insert('reviews', [
+            'product_id' => $product_id,
+            'name' => $name,
+            'review' => $review
+        ]);
+# check with terminal mysql> SELECT * FROM reviews \G see product added
+        return $this->app->redirect('/product?sku=' . $sku, ['reviewSaved' => true]);
+    }
+    public function new()
+    {      
+        // $this->app->validate([
+        //     'sku' =>  'required',
+        //     'name' =>  'required',
+        //     'description' => 'required',
+        //     'price' =>  'required',
+        //     'available' =>  'required',
+        //     'weight' =>  'required',
+        //     'perishable' =>  'required'
+        // ]);
         # If the above validation checks fail
         # The user is redirected back to where they came from (/product)
         # None of the code that follows will be executed
 
-        # if using $_GET or $POST superglobals, //dump($_POST['sku']);
-        # instead use input() from the framework, allows for second parameter
-        //dump($this->app->input('sku',''));
+        // $product_id = $this->app->input('product_id');
         $sku = $this->app->input('sku');
         $name = $this->app->input('name');
-        $review = $this->app->input('review');
-        # Todo: Persist review to the database...
-        # confirmation message, redirect data persisted or specifically flashed to the session or exist in the session for a single page request and then is deleted upon refresh with a second parameter expecting an array
+        $description = $this->app->input('description');
+        $price = $this->app->input('price');
+        $available = $this->app->input('available');
+        $weight = $this->app->input('weight');
+        $perishable = $this->app->input('perishable');
 
-        # Write a SQL query
-        $sql = "SELECT * FROM reviews";
+        $this->app->db()->insert('products', [
+            // 'product_id' => $product_id,
+            'sku' => $sku,
+            'name' => $name,
+            'description' => $description,
+            'price' => $price,
+            'available' => $available,
+            'weight' => $weight,
+            'perishable' => $perishable
+        ]);
+       
+        # Signature: //$app->db()->insert(string $table, array $data)
+        # the statement below replaces 15 lines of code!
+        $this->app->db()->insert('new', [
+            'sku' => $sku,
+            'name' => $name,
+            'description' => $description,
+            'price' => $price,
+            'available' => $available,
+            'weight' => $weight,
+            'perishable' => $perishable       
+        ]);
+            return $this->app->view(
+            'products/new'
+);
 
-        # Execute the statement, getting the result set as a PDOStatement obect
-        # https://www.php.net/manual/en/pdo.query.php
-        $statement = $pdo->query($sql);
-
-        $sqlTemplate = "INSERT INTO reviews (sku, name, review) 
-        VALUES (:sku, :name, :review)";
-
-        $values = [
-            'sku' => $this->app->input('sku'),
-            'name' => $this->app->input('name'),
-            'review' => $this->app->input('review'),
-        ];
-
-        $statement = $pdo->prepare($sqlTemplate);
-        $statement->execute($values);
-
-
-        // # https://www.php.net/manual/en/pdostatement.fetchall.php
-        // dump($statement->fetchAll());
-
-
-        return $this->app->redirect('/product?sku=' . $sku, ['reviewSaved' => true]);
+# check with terminal mysql> SELECT * FROM new \G see product added
+        return $this->app->redirect('/product?sku=' . $sku, ['new' => true]);
     }
+
 }
