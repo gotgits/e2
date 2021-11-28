@@ -9,18 +9,19 @@ class AppCommand extends Command
 {
     public function test()
     {
-        // dump('It works! You invoked your first command.');
+        dump('It works! You invoked your first command.');
     }
     public function fresh() 
     {
         $this->migrate();
         $this->seedProducts();
         $this->seedReviews();
+        $this->new();
         
     }
     public function migrate()
     {
-        // dump('You ran the migrate command');
+        dump('You ran the migrate command');
         $this->app->db()->createTable('products', [
             'name' => 'varchar(255)',
             'sku' => 'varchar(255)',
@@ -61,10 +62,10 @@ class AppCommand extends Command
             $product['perishable'] = $product['perishable'] ? 1 : 0;
             # Insert product
             $this->app->db()->insert('products', $product);
-            $this->app->db()->insert('new', $new);
+            // $this->app->db()->insert('new', $new);
 
         }
-        // dump('products table has been seeded');
+        dump('products table has been seeded');
     }
     public function seedReviews() {
         # Instantiate a new instance of the Faker\Factory class
@@ -81,7 +82,7 @@ class AppCommand extends Command
             # Insert the review
             $this->app->db()->insert('reviews', $review);
         } 
-        // dump('reviews table has been seeded'); 
+        dump('reviews table has been seeded'); 
              
     }     
 }

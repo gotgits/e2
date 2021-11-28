@@ -8,16 +8,16 @@
 @endsection
 
 @section('content')
-    {{-- add the variable for reviewSaved from the ProductsController with an alert message and class from Bootstrap css --}}
-    {{-- @if ($newProduct)
+
+    @if ($new)
         <div class='alert alert-success'>Thank you, your new product was submitted!</div>
     @endif
 
     @if ($app->errorsExist())
         <div class='alert alert-danger'>Please correct the errors below</div>
-    @endif --}}
+    @endif
 
-    <form method='POST' id='new-product' action='/products/new'>
+    <form method='POST' id='new' action='/products/save-new'>
         <h3>Add A New Product</h3>
         <p>Enter all the details to create a new product, then submit when complete</p>
         <div class='form-group new'>
@@ -35,7 +35,8 @@
             <label class='new' for='price'>Weight</label>
             <input type='text' class='form-control' name='weight' id='weight'>{{ $app->old('weight') }}
             <label class='new' for='price'>Perishible</label>
-            <input type='text' class='form-control' name='perishable' id='perishable'>{{ $app->old('perishable') }}
+            <input type='radio' name='perishable' value='1'>{{ $app->old('perishable') }} Yes
+            <input type='radio' name='perishable' value='0' checked='checked'>{{ $app->old('perishable') }} No
         </div>
         <button type='submit' class='btn btn-primary'>Submit New Product</button>
     </form>

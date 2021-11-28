@@ -37,7 +37,6 @@ class ProductsController extends Controller
             'products/show',
             ['product' => $product,
             'reviewSaved' => $reviewSaved,
-            'new' => $new
         ]);
     }
     public function saveReview()
@@ -68,17 +67,17 @@ class ProductsController extends Controller
 # check with terminal mysql> SELECT * FROM reviews \G see product added
         return $this->app->redirect('/product?sku=' . $sku, ['reviewSaved' => true]);
     }
-    public function new()
+    public function saveNew()
     {      
-        // $this->app->validate([
-        //     'sku' =>  'required',
-        //     'name' =>  'required',
-        //     'description' => 'required',
-        //     'price' =>  'required',
-        //     'available' =>  'required',
-        //     'weight' =>  'required',
-        //     'perishable' =>  'required'
-        // ]);
+        $this->app->validate([
+            'sku' =>  'required',
+            'name' =>  'required',
+            // 'description' => 'required',
+            // 'price' =>  'required',
+            // 'available' =>  'required',
+            // 'weight' =>  'required',
+            // 'perishable' =>  'required'
+        ]);
         # If the above validation checks fail
         # The user is redirected back to where they came from (/product)
         # None of the code that follows will be executed
@@ -105,15 +104,15 @@ class ProductsController extends Controller
        
         # Signature: //$app->db()->insert(string $table, array $data)
         # the statement below replaces 15 lines of code!
-        $this->app->db()->insert('new', [
-            'sku' => $sku,
-            'name' => $name,
-            'description' => $description,
-            'price' => $price,
-            'available' => $available,
-            'weight' => $weight,
-            'perishable' => $perishable       
-        ]);
+        // $this->app->db()->insert('new', [
+        //     'sku' => $sku,
+        //     'name' => $name,
+        //     'description' => $description,
+        //     'price' => $price,
+        //     'available' => $available,
+        //     'weight' => $weight,
+        //     'perishable' => $perishable       
+        // ]);
             return $this->app->view(
             'products/new'
 );

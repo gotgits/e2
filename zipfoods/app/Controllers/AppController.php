@@ -23,6 +23,10 @@ class AppController extends Controller
     {
         return $this->app->view('products/missing');
     }
+     public function saveNew()
+    {
+        return $this->app->view('products/new');
+    }
     public function z()
     {
         return $this->app->view('x/y/z');
@@ -69,37 +73,37 @@ class AppController extends Controller
         dump($statement->fetchAll());
     // }
 
-        # Example 2
-        # Create data from notes Insert  (every refresh will add duplicate)
-        $sql = "INSERT INTO products (name, sku, description, price, available, weight, perishable) 
-        VALUES (
-            'Driscoll’s Strawberries', 
-            'driscolls-strawberries',
-            'Driscoll’s Strawberries are consistently the best, sweetest, juiciest strawberries available. This size is the best selling, as it is both convenient for completing a cherished family recipes and for preparing a quick snack straight from the fridge.',
-            4.99, 
-            0, 
-            1,
-            1)";
+        // # Example 2
+        // # Create data from notes Insert  (every refresh will add duplicate)
+        // $sql = "INSERT INTO products (name, sku, description, price, available, weight, perishable) 
+        // VALUES (
+        //     'Driscoll’s Strawberries', 
+        //     'driscolls-strawberries',
+        //     'Driscoll’s Strawberries are consistently the best, sweetest, juiciest strawberries available. This size is the best selling, as it is both convenient for completing a cherished family recipes and for preparing a quick snack straight from the fridge.',
+        //     4.99, 
+        //     0, 
+        //     1,
+        //     1)";
 
-        $pdo->query($sql);
+        // $pdo->query($sql);
         # Example 3
         # Prepared statements
-        $sqlTemplate = "INSERT INTO products (name, sku, description, price, available, weight, perishable) 
-        VALUES (:name, :sku, :description, :price, :available, :weight, :perishable)";
+        // $sqlTemplate = "INSERT INTO products (name, sku, description, price, available, weight, perishable) 
+        // VALUES (:name, :sku, :description, :price, :available, :weight, :perishable)";
 
-        $values = [
-            'name' => 'Driscoll’s Strawberries',
-            'sku' => 'driscolls-strawberries',
-            'description' => 'Driscoll’s Strawberries are consistently the best, sweetest, juiciest strawberries available. This size is the best selling, as it is both convenient for completing a cherished family recipes and for preparing a quick snack straight from the fridge.',
-            'sku' => 'driscolls-strawberries',
-            'price' => 4.99,
-            'available' => 0,
-            'weight' => 1,
-            'perishable' => 1,
-        ];
+        // $values = [
+        //     'name' => 'Driscoll’s Strawberries',
+        //     'sku' => 'driscolls-strawberries',
+        //     'description' => 'Driscoll’s Strawberries are consistently the best, sweetest, juiciest strawberries available. This size is the best selling, as it is both convenient for completing a cherished family recipes and for preparing a quick snack straight from the fridge.',
+        //     'sku' => 'driscolls-strawberries',
+        //     'price' => 4.99,
+        //     'available' => 0,
+        //     'weight' => 1,
+        //     'perishable' => 1,
+        // ];
 
-        $statement = $pdo->prepare($sqlTemplate);
-        $statement->execute($values);
+        // $statement = $pdo->prepare($sqlTemplate);
+        // $statement->execute($values);
 
 
     }
