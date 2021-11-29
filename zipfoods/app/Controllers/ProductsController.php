@@ -7,8 +7,6 @@ class ProductsController extends Controller
 {
     public function index()
     {
-        # Docs App methods
-
         $products = $this->app->db()->all('products'); # parameter for 
 
         return $this->app->view('products/index', ['products' => $products]);
@@ -35,9 +33,39 @@ class ProductsController extends Controller
         # then make sure it is available to the view
         return $this->app->view(
             'products/show',
+                ['product' => $product,
+                'reviewSaved' => $reviewSaved,
+            ]
+        );
+        // $newSaved = $this->app->old('newSaved');
+        // return $this->app->view(
+        //     'products/new',
+        //         ['product' => $product,
+        //         'newSaved' => $newSaved,
+        //     ]
+        // );
+    }
+    public function new()
+    {
+        $sku = $this->app->param('sku');
+        
+        if (is_null($sku)) {
+            $this->app->redirect('/products');
+        }
+        $productQuery = $this->app-db()->findByColumn('product', 'sku', '=', $sku);
+        if (empty($productQuery)) {
+            return $this->app-view('products/missing');
+        } else {
+            $product = $productQuery[0];
+        }
+        $newSaved = $this->app->old('newSaved');
+        return $this->app->view(
+            'products/new',
             ['product' => $product,
-            'reviewSaved' => $reviewSaved,
+            'newSaved' => $newSaved,
         ]);
+
+        
     }
     public function saveReview()
     {     
@@ -69,15 +97,16 @@ class ProductsController extends Controller
     }
     public function saveNew()
     {      
-        $this->app->validate([
-            'sku' =>  'required',
-            'name' =>  'required',
-            // 'description' => 'required',
-            // 'price' =>  'required',
-            // 'available' =>  'required',
-            // 'weight' =>  'required',
-            // 'perishable' =>  'required'
-        ]);
+        // $this->app->validate([
+        // 'product_id' => 'required',
+        //     'sku' =>  'required',
+        //     'name' =>  'required',
+        //     // 'description' => 'required',
+        //     // 'price' =>  'required',
+        //     // 'available' =>  'required',
+        //     // 'weight' =>  'required',
+        //     // 'perishable' =>  'required'
+        // ]);
         # If the above validation checks fail
         # The user is redirected back to where they came from (/product)
         # None of the code that follows will be executed
@@ -104,21 +133,21 @@ class ProductsController extends Controller
        
         # Signature: //$app->db()->insert(string $table, array $data)
         # the statement below replaces 15 lines of code!
-        // $this->app->db()->insert('new', [
-        //     'sku' => $sku,
-        //     'name' => $name,
-        //     'description' => $description,
-        //     'price' => $price,
-        //     'available' => $available,
-        //     'weight' => $weight,
-        //     'perishable' => $perishable       
-        // ]);
+        $this->app->db()->insert('new', [      
+            'sku' => $sku,
+            'name' => $name,
+            'description' => $description,
+            'price' => $price,
+            'available' => $available,
+            'weight' => $weight,
+            'perishable' => $perishable       
+        ]);
             return $this->app->view(
             'products/new'
 );
 
 # check with terminal mysql> SELECT * FROM new \G see product added
-        return $this->app->redirect('/product?sku=' . $sku, ['new' => true]);
+        return $this->app->redirect('/product?sku=' . $sku, ['newSaved' => true]);
     }
 
 }

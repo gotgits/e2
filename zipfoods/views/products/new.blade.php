@@ -9,8 +9,8 @@
 
 @section('content')
 
-    @if ($new)
-        <div class='alert alert-success'>Thank you, your new product was submitted!</div>
+    @if ($newSaved)
+        <div class='alert alert-success'>Thank you, your new product was added!</div>
     @endif
 
     @if ($app->errorsExist())

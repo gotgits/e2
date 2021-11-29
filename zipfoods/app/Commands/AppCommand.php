@@ -16,12 +16,12 @@ class AppCommand extends Command
         $this->migrate();
         $this->seedProducts();
         $this->seedReviews();
-        $this->new();
-        
     }
     public function migrate()
     {
         dump('You ran the migrate command');
+        # Note that the *createTable* method automaticall adds an auto-incrementing
+        # primary key column so you don't have to include that in your array of columns.
         $this->app->db()->createTable('products', [
             'name' => 'varchar(255)',
             'sku' => 'varchar(255)',

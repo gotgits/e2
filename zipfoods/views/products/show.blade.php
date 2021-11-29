@@ -10,6 +10,7 @@
         <div class='alert alert-success'>Thank you, your review was submitted!</div>
     @endif
 
+
     @if ($app->errorsExist())
         <div class='alert alert-danger'>Please correct the errors below</div>
     @endif

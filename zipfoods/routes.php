@@ -13,6 +13,6 @@ return [
     '/practice' => ['AppController', 'practice'],
     '/products/reviews' => ['ProductsController', 'reviews'],
     '/products/save-new' => ['ProductsController', 'saveNew'],
-    // '/products/new' => ['ProductsController', 'new']
+    '/products/new' => ['ProductsController', 'new']
     
 ];
