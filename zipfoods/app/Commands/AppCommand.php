@@ -72,7 +72,7 @@ class AppCommand extends Command
         $faker = Factory::create();
 
         # Use a loop to create 5 reviews
-        for($i = 0; $i < 5; $i++) {
+        for($i = 0; $i < 20; $i++) {
             # Set up a review
             $review = [
                 'name' => $faker->name,

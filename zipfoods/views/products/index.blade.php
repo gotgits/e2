@@ -20,5 +20,6 @@
             </a>
         @endforeach
     </div>
+        <a href='/products/new'> Add a new product! &rarr;</a>
 
 @endsection

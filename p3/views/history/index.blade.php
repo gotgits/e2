@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <h2>Game Rounds</h2>
+    <h2>Game History</h2>
     {{-- comments with blade syntax will not show on the page rendered --}}
     {{-- @foreach ($products as $product)
         {{ $product['name'] }}

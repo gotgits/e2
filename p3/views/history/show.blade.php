@@ -5,37 +5,31 @@
 @endsection
 
 @section('content')
-    {{-- add the variable for reviewSaved from the ProductsController with an alert message and class from Bootstrap css --}}
-    @if ($reviewSaved)
-        <div class='alert alert-success'>Thank you, your review was submitted!</div>
-    @endif
 
     @if ($app->errorsExist())
         <div class='alert alert-danger'>Please correct the errors below</div>
     @endif
 
-    <div id='product-show'>
-        <h2>{{ $product['name'] }}</h2>
+    <div id='round-show'>
+        <dl>
+            <dt>{{ $round['name'] }}</dt>
 
-        <img src='/images/products/{{ $product['sku'] }}.jpg' class='product-thumb'>
-
-        <p class='product-description'>
-            {{ $product['description'] }}
-        </p>
-
-        <div class='product-price'>${{ $product['price'] }}</div>
+            <dd class='round-details'>
+                {{ $round['details'] }}
+            </dd>
+        </dl>
     </div>
 
     <form method='POST' id='product-review' action='/products/save-review'>
-        <h3>Review {{ $product['name'] }}</h3>
-        <input type='hidden' name='sku' value='{{ $product['sku'] }}'>
+        <h3>Player{{ $round['name'] }}</h3>
+        <input type='hidden' name='competitor' value='{{ $round['competitor'] }}'>
         <div class='form-group'>
-            <label for='name'>Name</label>
+            <label for='name'>Player Name</label>
             <input type='text' class='form-control' name='name' id='name' value='{{ $app->old('name') }}'>
         </div>
 
         <div class='form-group'>
-            <label for='review'>Review</label>
+            <label for='turn'>Turn</label>
             <textarea name='review' id='review' class='form-control'>{{ $app->old('review') }}</textarea>
             (Min: 200 characters / Max: 300 characters)
         </div>

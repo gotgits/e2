@@ -30,42 +30,13 @@ class ProductsController extends Controller
         }
         # accessing the data from variable in the saveReview method below
         $reviewSaved = $this->app->old('reviewSaved');
-        # then make sure it is available to the view
-        return $this->app->view(
-            'products/show',
-                ['product' => $product,
-                'reviewSaved' => $reviewSaved,
-            ]
-        );
-        // $newSaved = $this->app->old('newSaved');
-        // return $this->app->view(
-        //     'products/new',
-        //         ['product' => $product,
-        //         'newSaved' => $newSaved,
-        //     ]
-        // );
-    }
-    public function new()
-    {
-        $sku = $this->app->param('sku');
-        
-        if (is_null($sku)) {
-            $this->app->redirect('/products');
-        }
-        $productQuery = $this->app-db()->findByColumn('product', 'sku', '=', $sku);
-        if (empty($productQuery)) {
-            return $this->app-view('products/missing');
-        } else {
-            $product = $productQuery[0];
-        }
-        $newSaved = $this->app->old('newSaved');
-        return $this->app->view(
-            'products/new',
-            ['product' => $product,
-            'newSaved' => $newSaved,
+        $reviews = $this->app->db()->findByColumn('reviews', 'product_id', '=', $product['id']);
+        # make available to the view
+        return $this->app->view('products/show',[
+            'product' => $product,
+            'reviewSaved' => $reviewSaved,
+            'reviews' => $reviews
         ]);
-
-        
     }
     public function saveReview()
     {     
@@ -92,62 +63,48 @@ class ProductsController extends Controller
             'name' => $name,
             'review' => $review
         ]);
-# check with terminal mysql> SELECT * FROM reviews \G see product added
+        # check with terminal mysql> SELECT * FROM reviews \G see product added
         return $this->app->redirect('/product?sku=' . $sku, ['reviewSaved' => true]);
+    }
+    public function new()
+    {
+        $newSaved = $this->app->old('newSaved');
+        $sku = $this->app->old('sku');
+        # return statement makes the saveNew method available to the view new.blade.php
+        return $this->app->view('products/new',[
+            'newSaved' => $newSaved,
+            'sku' => $sku,
+        ]);     
     }
     public function saveNew()
     {      
-        // $this->app->validate([
-        // 'product_id' => 'required',
-        //     'sku' =>  'required',
-        //     'name' =>  'required',
-        //     // 'description' => 'required',
-        //     // 'price' =>  'required',
-        //     // 'available' =>  'required',
-        //     // 'weight' =>  'required',
-        //     // 'perishable' =>  'required'
-        // ]);
-        # If the above validation checks fail
-        # The user is redirected back to where they came from (/product)
-        # None of the code that follows will be executed
-
-        // $product_id = $this->app->input('product_id');
-        $sku = $this->app->input('sku');
-        $name = $this->app->input('name');
-        $description = $this->app->input('description');
-        $price = $this->app->input('price');
-        $available = $this->app->input('available');
-        $weight = $this->app->input('weight');
-        $perishable = $this->app->input('perishable');
-
-        $this->app->db()->insert('products', [
-            // 'product_id' => $product_id,
-            'sku' => $sku,
-            'name' => $name,
-            'description' => $description,
-            'price' => $price,
-            'available' => $available,
-            'weight' => $weight,
-            'perishable' => $perishable
+        $this->app->validate([
+            'name' => 'required',
+            'sku' => 'required',
+            'description' => 'required|maxLength:600',
+            'price' => 'required|numeric',
+            'available' => 'required|digit',
+            'weight' => 'required|numeric',
+            // 'perishable' =>  'required'
         ]);
-       
-        # Signature: //$app->db()->insert(string $table, array $data)
-        # the statement below replaces 15 lines of code!
-        $this->app->db()->insert('new', [      
-            'sku' => $sku,
-            'name' => $name,
-            'description' => $description,
-            'price' => $price,
-            'available' => $available,
-            'weight' => $weight,
-            'perishable' => $perishable       
-        ]);
-            return $this->app->view(
-            'products/new'
-);
+        # If validation checks fail, code that follows will not be executed
+        # The user is redirected back to /product/new
+        # Maintaining flash data for the current inputs rather than clearing 
 
-# check with terminal mysql> SELECT * FROM new \G see product added
-        return $this->app->redirect('/product?sku=' . $sku, ['newSaved' => true]);
+        $newSaved = [
+            'name' => $this->app->input('name'),
+            'sku' => $this->app->input('sku'),
+            'description' => $this->app->input('description'),
+            'price' => $this->app->input('price'),
+            'available' => $this->app->input('available'),
+            'weight' => $this->app->input('weight'),
+            'perishable' => $this->app->input('perishable')
+        ];
+        $this->app->db()->insert('products', $newSaved);
+
+        $this->app->redirect('/products/new', [
+            'newSaved' => true,            
+        ]);
+        
     }
-
 }

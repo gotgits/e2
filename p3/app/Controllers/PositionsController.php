@@ -16,7 +16,7 @@ class ProductsController extends Controller
     {
         # Docs App methods
         // $productsObj = new Products($this->app->path('/database/products.json'));
-        $products = $this->positionObj->getAll();
+        $positions = $this->positionObj->getAll();
         return $this->app->view('rounds/index', ['rounds' => $rounds]);
 
         // dd($products);
@@ -35,7 +35,7 @@ class ProductsController extends Controller
     
     public function show()
     {
-        $sku = $this->app->param('sku');
+        $position = $this->app->param('position');
         
         # above is terse version for an absolute path instance, using the param method to retrieve route parameters/query string values:
         # this is the absolute path:
@@ -45,10 +45,10 @@ class ProductsController extends Controller
         # dump($$_GET['sku]);
         # dump($this->app->param('sku'));
         
-        if (is_null($sku)) {
+        if (is_null($position)) {
             $this->app->redirect('/history');
         }
-        $product = $this->positionObj->getBySku($sku);
+        $position = $this->positionObj->getBySku($position);
 
         if (is_null($round)) {
             return $this->app->view('history/missing');
@@ -57,7 +57,7 @@ class ProductsController extends Controller
         $roundSaved = $this->app->old('roundSaved');
         # then make sure it is available to the view
         return $this->app->view(
-            'positions/show',
+            'history/show',
             ['position' => $position,
             'roundSaved' => $roundSaved
         ]
@@ -93,8 +93,8 @@ class ProductsController extends Controller
         // return 'Save review test...';
         # validation code should be at top, before retrieving data
         $this->app->validate([
-            'sku' => '',
-            'name' => 'required',
+            'player' => '',
+            'competitor' => '',
             'position' => 'required',
             'round' => ''
         ]);
@@ -108,9 +108,9 @@ class ProductsController extends Controller
         # if using $_GET or $POST superglobals, //dump($_POST['sku']);
         # instead use input() from the framework, allows for second parameter
         //dump($this->app->input('sku',''));
-        $sku = $this->app->input('sku');
-        $name = $this->app->input('name');
-        $review = $this->app->input('position');
+        $player = $this->app->input('player');
+        $competitor = $this->app->input('competitor');
+        $position = $this->app->input('position');
         # Todo: Persist review to the database...
         # confirmation message, redirect data persisted or specifically flashed to the session or exist in the session for a single page request and then is deleted upon refresh with a second parameter expecting an array
 
@@ -121,12 +121,12 @@ class ProductsController extends Controller
         # https://www.php.net/manual/en/pdo.query.php
         $statement = $pdo->query($sql);
 
-        $sqlTemplate = "INSERT INTO reviews (sku, name, position) 
-        VALUES (:sku, :name, :position, :round)";
+        $sqlTemplate = "INSERT INTO history (player, competitor, position) 
+        VALUES (:player, :competitor, :position, :round)";
 
         $values = [
-            'sku' => $this->app->input('sku'),
-            'name' => $this->app->input('name'),
+            'player' => $this->app->input('player'),
+            'competitor' => $this->app->input('player'),
             'position' => $this->app->input('position'),
             'round' => $this->app->input('round'),
         ];

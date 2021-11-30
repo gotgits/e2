@@ -53,5 +53,16 @@
         </ul>
     @endif
 
+    <div>
+        <h3>Reviews</h3>
+        @foreach ($reviews as $review)
+            <div>
+                <div>{{ $review['name'] }}</div>
+                <div>{{ $review['review'] }}</div>
+            </div>
+        @endforeach
+    </div>
+
     <a href='/products'>&larr; Return to all products</a>
+
 @endsection
