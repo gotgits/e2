@@ -1,10 +1,10 @@
  <?php
-    // Defining variables
+    // variables
     $playerSum = 0;
     $competitorSum = 0;
     $goal = 25;
 
-    // while loop running until $sum1 or $sum2 >= $goal
+    // add to array loop until $sum1 or $sum2 >= $goal
     $results = [];
     $rounds = [];
 
@@ -16,23 +16,15 @@
         $playerSum += $playerTurn;
         // checking round results for goal (winner Player)
         if ($playerSum >= $goal) {
-            // echo $playerTurn." ".$playerSum;
+            // echo $playerTurn . $playerSum;
         }
         // $competitorTurn is increased by $competitorTurn
         $competitorSum += $competitorTurn;
         // checking round results for goal(winner Competitor)
         if ($competitorSum >= $goal) {
-            // echo $competitorTurn." ".$competitorSum;    
+            // echo $competitorTurn . $competitorSum;
         }
-        // Individual round results
-            // echo "Player turn $playerTurn Player Round Sum: $playerSum <br>
-            // Competitor turn $competitorTurn Competitor Round Sum: $competitorSum<br><br>";  
 
-        // Round results of both players
-        // $round[]=$results;
-
-        // }
-        // When goal is met Winner
         if ($winner = $playerSum >= $goal or $competitorSum >= $goal) {
             if ($playerSum >= $goal) {
                 $winner = 'Player';
@@ -40,10 +32,11 @@
                 $winner = 'Competitor';
             }
         }
+        
         $round = count($rounds)+1;
-            array_push(
-                $results,
-                    array(
+        array_push(
+            $results,
+            array(
                     'rounds' => $rounds,
                     'playerTurn' => $playerTurn,
                     'playerSum' => $playerSum,
@@ -51,8 +44,6 @@
                     'competitorSum' => $competitorSum,
                     'winner' => $winner,
                     )
-                );
-            
-        }
-        require 'index-view.php';
- 
+        );
+    }
+    require 'index-view.php';
