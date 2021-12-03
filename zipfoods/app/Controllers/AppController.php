@@ -71,24 +71,24 @@ class AppController extends Controller
 
         # https://www.php.net/manual/en/pdostatement.fetchall.php
         dump($statement->fetchAll());
-    // }
+        // }
 
         # Example 2
         # Create data from notes Insert  (every refresh will add duplicate)
-        $sql = "INSERT INTO products (name, sku, description, price, available, weight, perishable) 
+        $sql = "INSERT INTO products (name, sku, description, price, available, weight, perishable)
         VALUES (
-            'Driscoll’s Strawberries', 
+            'Driscoll’s Strawberries',
             'driscolls-strawberries',
             'Driscoll’s Strawberries are consistently the best, sweetest, juiciest strawberries available. This size is the best selling, as it is both convenient for completing a cherished family recipes and for preparing a quick snack straight from the fridge.',
-            4.99, 
-            0, 
+            4.99,
+            0,
             1,
             1)";
 
         $pdo->query($sql);
         # Example 3
         # Prepared statements
-        $sqlTemplate = "INSERT INTO products (name, sku, description, price, available, weight, perishable) 
+        $sqlTemplate = "INSERT INTO products (name, sku, description, price, available, weight, perishable)
         VALUES (:name, :sku, :description, :price, :available, :weight, :perishable)";
 
         $values = [
@@ -104,7 +104,5 @@ class AppController extends Controller
 
         $statement = $pdo->prepare($sqlTemplate);
         $statement->execute($values);
-
-
     }
 }

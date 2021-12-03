@@ -11,7 +11,7 @@ class AppCommand extends Command
     {
         dump('It works! You invoked your first command.');
     }
-    public function fresh() 
+    public function fresh()
     {
         $this->migrate();
         $this->seedProducts();
@@ -48,12 +48,12 @@ class AppCommand extends Command
                 'perishable' => 'tinyint(1)'
         ]);
         // dump('Migration complete; check the database for your new tables.');
-    } 
+    }
     public function seedProducts()
     {
         $products = new Products($this->app->path('database/products.json'));
         
-        foreach($products->getAll() as $product) {
+        foreach ($products->getAll() as $product) {
             # We're not tracking `categories`
             unset($product['categories']);
             # Don't need ID - that will get automatically added
@@ -63,16 +63,16 @@ class AppCommand extends Command
             # Insert product
             $this->app->db()->insert('products', $product);
             // $this->app->db()->insert('new', $new);
-
         }
         dump('products table has been seeded');
     }
-    public function seedReviews() {
+    public function seedReviews()
+    {
         # Instantiate a new instance of the Faker\Factory class
         $faker = Factory::create();
 
         # Use a loop to create 5 reviews
-        for($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 20; $i++) {
             # Set up a review
             $review = [
                 'name' => $faker->name,
@@ -81,8 +81,7 @@ class AppCommand extends Command
             ];
             # Insert the review
             $this->app->db()->insert('reviews', $review);
-        } 
-        dump('reviews table has been seeded'); 
-             
-    }     
+        }
+        dump('reviews table has been seeded');
+    }
 }

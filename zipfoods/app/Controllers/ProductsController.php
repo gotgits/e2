@@ -7,21 +7,21 @@ class ProductsController extends Controller
 {
     public function index()
     {
-        $products = $this->app->db()->all('products'); # parameter for 
+        $products = $this->app->db()->all('products'); # parameter for
 
         return $this->app->view('products/index', ['products' => $products]);
     }
 
     public function show()
-    {    # a terse version for an absolute path instance, 
-         # using the param method to retrieve route parameters/query string values:
+    {    # a terse version for an absolute path instance,
+        # using the param method to retrieve route parameters/query string values:
         $sku = $this->app->param('sku');
         
         if (is_null($sku)) {
             $this->app->redirect('/products');
         }
-         # Signature //$app->db()->findByColumn(string $table, string $column, string $operator, mixed $value)
-         $productQuery = $this->app->db()->findByColumn('products', 'sku', '=', $sku);
+        # Signature //$app->db()->findByColumn(string $table, string $column, string $operator, mixed $value)
+        $productQuery = $this->app->db()->findByColumn('products', 'sku', '=', $sku);
          
         if (empty($productQuery)) {
             return $this->app->view('products/missing');
@@ -32,14 +32,14 @@ class ProductsController extends Controller
         $reviewSaved = $this->app->old('reviewSaved');
         $reviews = $this->app->db()->findByColumn('reviews', 'product_id', '=', $product['id']);
         # make available to the view
-        return $this->app->view('products/show',[
+        return $this->app->view('products/show', [
             'product' => $product,
             'reviewSaved' => $reviewSaved,
             'reviews' => $reviews
         ]);
     }
     public function saveReview()
-    {     
+    {
         $this->app->validate([
             'sku' => 'required',
             'product_id' => 'required',
@@ -71,13 +71,13 @@ class ProductsController extends Controller
         $newSaved = $this->app->old('newSaved');
         $sku = $this->app->old('sku');
         # return statement makes the saveNew method available to the view new.blade.php
-        return $this->app->view('products/new',[
+        return $this->app->view('products/new', [
             'newSaved' => $newSaved,
             'sku' => $sku,
-        ]);     
+        ]);
     }
     public function saveNew()
-    {      
+    {
         $this->app->validate([
             'name' => 'required',
             'sku' => 'required',
@@ -89,7 +89,7 @@ class ProductsController extends Controller
         ]);
         # If validation checks fail, code that follows will not be executed
         # The user is redirected back to /product/new
-        # Maintaining flash data for the current inputs rather than clearing 
+        # Maintaining flash data for the current inputs rather than clearing
 
         $newSaved = [
             'name' => $this->app->input('name'),
@@ -103,8 +103,7 @@ class ProductsController extends Controller
         $this->app->db()->insert('products', $newSaved);
 
         $this->app->redirect('/products/new', [
-            'newSaved' => true,            
+            'newSaved' => true,
         ]);
-        
     }
 }
