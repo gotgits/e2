@@ -1,13 +1,11 @@
 @extends('templates.master')
 
 @section('title')
-    {{ $welcome }}
+    {{ $app->config('app.name') }}
 @endsection
 
 @section('content')
-    
-    <h2>{{ $welcome }}</h2>
-
-    <p>Hello and welcome! This is the boilerplate splash page for my application built with  <a href='https://github.com/susanBuck/e2framework'>e2framework</a>.</p>
+       <h2 class="center">Game of Stones</h2>
+       <p class="center">Aloha!</p>
 
 @endsection
