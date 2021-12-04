@@ -7,7 +7,7 @@
 actor: AcceptanceTester
 modules:
     enabled:
-        -Asserts
+        - Asserts
         - PhpBrowser:
             url: http://e2zipfoods.metrognome.me
         - \Helper\Acceptance

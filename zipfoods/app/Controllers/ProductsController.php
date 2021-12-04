@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers;
 
 use App\Products;
@@ -16,13 +17,13 @@ class ProductsController extends Controller
     {    # a terse version for an absolute path instance,
         # using the param method to retrieve route parameters/query string values:
         $sku = $this->app->param('sku');
-        
+
         if (is_null($sku)) {
             $this->app->redirect('/products');
         }
         # Signature //$app->db()->findByColumn(string $table, string $column, string $operator, mixed $value)
         $productQuery = $this->app->db()->findByColumn('products', 'sku', '=', $sku);
-         
+
         if (empty($productQuery)) {
             return $this->app->view('products/missing');
         } else {
@@ -55,7 +56,7 @@ class ProductsController extends Controller
         $sku = $this->app->input('sku');
         $name = $this->app->input('name');
         $review = $this->app->input('review');
-        
+
         # Signature: //$app->db()->insert(string $table, array $data)
         # the statement below replaces 15 lines of code!
         $this->app->db()->insert('reviews', [

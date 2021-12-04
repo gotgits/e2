@@ -162,6 +162,13 @@ a.product-link:hover {
 	font-size: 2rem;
 	padding: 10px;
 }
+.product-price-sale {
+	font-family: var(--serif-font);
+	font-weight: bold;
+	font-size: 2rem;
+	padding: 10px;
+	color: var(--green);
+}
 
 #product-review {
 	margin: 20px auto;
@@ -178,4 +185,8 @@ a.product-link:hover {
 
 #product-review textarea {
 	height: 100px;
+}
+
+.review-name input, .review-content textarea {
+	color: var(--silver);
 }

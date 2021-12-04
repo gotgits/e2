@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-       <h2 class="center">Game of Stones</h2>
-       <p class="center">Aloha!</p>
+    <h2 class="center">Game of Gnomes</h2>
+    <p class="center">M'ath</p>
 
 @endsection

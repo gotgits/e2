@@ -7,9 +7,6 @@
 @section('content')
     <h2>All Products</h2>
     {{-- comments with blade syntax will not show on the page rendered --}}
-    {{-- @foreach ($products as $product)
-        {{ $product['name'] }}
-    @endforeach --}}
     <div id='product-index'>
         @foreach ($products as $product)
             <a class='product-link' href='/product?sku={{ $product['sku'] }}'>
@@ -20,6 +17,6 @@
             </a>
         @endforeach
     </div>
-        <a href='/products/new'> Add a new product! &rarr;</a>
+    <a href='/products/new'> Add a new product! &rarr;</a>
 
 @endsection
