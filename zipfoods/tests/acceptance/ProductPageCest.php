@@ -9,10 +9,12 @@ class ProductPageCest
     {
         # Act
         $I->amOnPage('/product?sku=driscolls-strawberries');
-        $I->seeInCurrentUrl('');
+        // $I->seeInCurrentUrl('');
 
         # Assert the correct title is set on the page
         $I->seeInTitle('Driscoll’s Strawberries');
+        // $I->dontSeeLink('products/missing');
+        $I->dontSeeInTitle('Product Not Found');
 
         # Assert the existence of certain text on the page
         $I->see('Driscoll’s Strawberries');
@@ -20,8 +22,8 @@ class ProductPageCest
         # Assert the existence of a certain element on the page
         $I->seeElement('.product-thumb');
 
-        # Assert the existence of text within a specific element on the page
-        $I->see('$4.99', '.product-price');
+        // # Assert the existence of text within a specific element on the page
+        // $I->see('$4.99', '.product-price');
 
         # Assert the existence of a custom selector or attribute in an element on the page
         $I->see('$4.99', '[test=product-price]');
