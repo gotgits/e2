@@ -10,7 +10,7 @@ class NewProductPageCest
         # Assert the correct title is set on the page
         $I->seeInTitle('Add A New Product');
 
-        // $I->fillField('name', 'required');
+        $I->fillField('name', 'required');
 
         # Assert the existence of text within a specific element on the page
         $name = 'New Product Name Test';
