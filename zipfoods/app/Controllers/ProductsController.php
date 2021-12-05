@@ -81,7 +81,7 @@ class ProductsController extends Controller
     {
         $this->app->validate([
             'name' => 'required',
-            'sku' => 'required',
+            'sku' => 'required|alphaNumericDash',
             'description' => 'required|maxLength:600',
             'price' => 'required|numeric',
             'available' => 'required|digit',
