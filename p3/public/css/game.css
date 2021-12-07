@@ -24,7 +24,7 @@
 	--aqua: #7fdfff;
 
 	--maroon: #85144b;
-	--cranberry: #980036;
+	--cranberry: #b70a57;
 	--red: #ff4136;
 	--salmon: #ffa096;
 	--papayawhip: #ffefd5;
@@ -66,8 +66,8 @@ main {
 }
 
 header {
+	margin: 20px;
 	text-align: center;
-	margin-top: 1.2rem;
 }
 
 div {
@@ -80,8 +80,10 @@ div {
 }
 
 h1 {
-	color: var(--raspberry);
+	color: var(--cranberry);
 	text-align: center;
+	display: inline-block;
+	padding: 1ch 2ch;
 }
 
 h2 {
@@ -94,10 +96,9 @@ h3 {
 }
 
 .image {
-	margin-top: .2em;
-	padding: 1em;
-	width: 324px;
-	height: 324px;
+	margin: 1em;
+	width: 260px;
+	height: 260px;
 	border-radius: 5px;
 }
 

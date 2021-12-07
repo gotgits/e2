@@ -8,35 +8,38 @@ class HistoryController extends Controller
 {
     public function index()
     {
-        $history = $this->app->db()->all('history'); # parameter for
+        // return 'This is the history index...';
+        $positionsObj = new Positions($this->app->path('database/positions.json'));
 
-        return $this->app->view('history/index', ['history' => $history]);
+        $positions = $positionsObj->getAll();
+        dump($positions);
+        return $this->app->view('history/index', ['positions' => $positions]);
     }
 
-    public function show()
-    {    # a terse version for an absolute path instance,
-        # using the param method to retrieve route parameters/query string values:
-        $sku = $this->app->param('sku');
+    // public function show()
+    // {    # a terse version for an absolute path instance,
+    //     # using the param method to retrieve route parameters/query string values:
+    //     $sku = $this->app->param('sku');
 
-        if (is_null($sku)) {
-            $this->app->redirect('/products');
-        }
-        # Signature //$app->db()->findByColumn(string $table, string $column, string $operator, mixed $value)
-        $productQuery = $this->app->db()->findByColumn('products', 'sku', '=', $sku);
+    //     if (is_null($sku)) {
+    //         $this->app->redirect('/history');
+    //     }
+    //     # Signature //$app->db()->findByColumn(string $table, string $column, string $operator, mixed $value)
+    //     $roundQuery = $this->app->db()->findByColumn('history', 'sku', '=', $sku);
 
-        if (empty($productQuery)) {
-            return $this->app->view('products/missing');
-        } else {
-            $product = $productQuery[0];
-        }
-        # accessing the data from variable in the saveReview method below
-        $reviewSaved = $this->app->old('reviewSaved');
-        $reviews = $this->app->db()->findByColumn('reviews', 'product_id', '=', $product['id']);
-        # make available to the view
-        return $this->app->view('products/show', [
-            'product' => $product,
-            'reviewSaved' => $reviewSaved,
-            'reviews' => $reviews
-        ]);
-    }
+    //     if (empty($roundQuery)) {
+    //         return $this->app->view('round/missing');
+    //     } else {
+    //         $round = $roundQuery[0];
+    //     }
+    //     # accessing the data from variable in the saveReview method below
+    //     $roundSaved = $this->app->old('roundSaved');
+    //     $rounds = $this->app->db()->findByColumn('rounds', 'round_id', '=', $round['id']);
+    //     # make available to the view
+    //     return $this->app->view('history/show', [
+    //         'rounds' => $rounds,
+    //         'roundSaved' => $roundSaved,
+    //         'round' => $round
+    //     ]);
+    // }
 }

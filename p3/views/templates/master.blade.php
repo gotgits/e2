@@ -1,7 +1,8 @@
 <!doctype html>
 <html lang='en'>
+
 <head>
- <meta charset='utf-8'>
+    <meta charset='utf-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel='shortcut icon' href='/favicon.ico'>
 
@@ -18,12 +19,12 @@
     @yield('head')
 
 </head>
+
 <body>
     <header>
-        <h1>
-            <a href='/'><img id='logo' src='/images/5x5_back-n-forth-blank.png'
-                    alt='{{ $app->config('app.name') }} logo'></a>
-        </h1>
+        <a href='/'><img class='image' src='/images/5x5_back-n-forth-blank.png' alt='{{ $app->config('app.name') }} logo'></a>
+        <h1>Game of Gnomes </h1>
+
     </header>
 
     <main>
@@ -36,4 +37,5 @@
     @yield('body')
 
 </body>
+
 </html>

@@ -4,7 +4,7 @@
 
 return [
     '/' => ['AppController', 'index'],
-    '/history' => ['PositionsController', 'index'],
-    '/history' => ['PositionsController', 'show'],
-    '/round' => ['PositionsController', 'show']
+    '/history' => ['HistoryController', 'index'],
+    // '/history' => ['HistoryController', 'show'],
+    // '/round' => ['HistoryController', 'show']
 ];
