@@ -1,8 +1,19 @@
-# e2framework
 
-*e2framework* is a rudimentary PHP framework designed for the course [DGMD E-2 Web Programming for Beginners with PHP](https://hesweb.dev/e2).
+# Project 3
++ By: Rose Mikan
++ URL: <http://e2p3.metrognome.me>
 
-The goal of this software is to provide students an introduction to working with more advanced PHP frameworks such as Laravel and/or Symfony.
+## Graduate requirement
++ [x] I have integrated testing into my application
++ [ ] I am taking this course for undergraduate credit and have opted out of integrating testing into my application
 
-+ __Documentation:__ <https://hesweb.dev/e2/notes/php/e2framework/installation>
-+ __Guide:__ <https://hesweb.dev/e2/notes/php/frameworks/intro>
+## Outside resources
+n/a
+
+## Notes for instructor
+n/a
+
+## Codeception testing output
+```
+
+```

@@ -83,7 +83,7 @@ h1 {
 	color: var(--cranberry);
 	text-align: center;
 	display: inline-block;
-	padding: 1ch 2ch;
+	padding: 1px;
 }
 
 h2 {
@@ -91,7 +91,6 @@ h2 {
 }
 h3 {
 	color: var(--mediumpurple);
-	margin-bottom: .02em;
 	text-transform: uppercase;
 }
 
@@ -126,9 +125,27 @@ h3 {
 }
 .left {
 	text-align: left;
+	padding: .2em 1em;
+}
+ul.left {
+	padding: 0 2em;
+	list-style-type: square;
+	list-style-position: inside;
 }
 .center {
 	text-align: center;
+	padding: 1.2em;
+}
+.margin {
+	margin: -2em;
+}
+.inline {
+	display: inline;
+}
+.detail {
+	font-size: .9rem;
+	margin-top: 1em;
+	color: var(--gray);
 }
 
 dl.rounds {
@@ -153,7 +170,9 @@ dt {
 /*-- ******** FORM ******** --*/
 input,
 textarea {
-	font-size: 2.4rem;
+	font-size: 1.3rem;
+	color: var(--pewter);
+	border-radius: 7px;
 }
 
 .controls,
@@ -163,6 +182,8 @@ textarea {
 
 .btn {
 	margin: 10px;
+	border-radius: 7px;
+	background-color: var(--pewter);
 }
 
 label {

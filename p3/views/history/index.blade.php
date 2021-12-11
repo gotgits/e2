@@ -5,7 +5,8 @@
 @endsection
 
 @section('content')
-    <h2 class="center">Game History</h2>
+    <h2 class="center">Game of Gnomes</h2>
+    <h3 class="center">Game History</h3>
     <p class="center">Eachdraidh</p>
 
     <div id='position-index'>

@@ -13,7 +13,5 @@
         <a href='{{ $app->config('app.url') }}'>&larr; Home</a>
         </p>
     </div>
-    <ul>
-    <li>
 
 @endsection

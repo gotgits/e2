@@ -22,9 +22,7 @@
 
 <body>
     <header>
-        <a href='/'><img class='image' src='/images/5x5_back-n-forth-blank.png' alt='{{ $app->config('app.name') }} logo'></a>
-        <h1>Game of Gnomes </h1>
-
+        <h1> <a href='/'><img class='image' src='/images/5x5_back-n-forth-blank.png' alt='{{ $app->config('app.name') }} logo'></a></h1>
     </header>
 
     <main>
