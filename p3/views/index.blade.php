@@ -4,26 +4,20 @@
     <h2 class='center margin'>Game of Gnomes (Gèam Gnomes)</h2>
     <p class='center'>Welcome (M'ath)</p>
 
-    <form method='POST' action='/register' id='register'>
-        @if ($playerNameSaved)
-            <div class='alert alert-success'> Thank you, {{ $playerName }} your name is registered.</div>
+    <form method='POST' action='/playername' id='playername'>
+
+        @if ($player_name)
+            <div class='alert alert-success'> Thank you, {{ $app->old('player_name') }} your name is registered.</div>
         @endif
         <div class='margin'>
-            <label for='playerNname'>Your Name</label>
-            <input test='player-name-input' type='text' name='playerName' id='playerName' value='{{ $app->old('playerName') }}'
-                placeholder=' *Required'>
-            <button test='playerName-submit-button' type='submit' class='btn' id='register'>Enter</button>
-            <!-- TODO: Display input name on index-view -->
+            <label for='player_name'>Your Name</label>
+            <input type='text' name='player_name' id='player_name' value='{{ $app->old('player_name') }}' placeholder=' *Required'>
+            <input type='hidden' name='timein' value='{{ $timein }}'>
+            <button type='submit' class='btn' id='playername'>Enter</button>
         </div>
     </form>
-    <p class='detail'>*Min. length: 10 alpha-numeric characters, dashes, underscores</p>
-    @if ($app->errorsExist())
-        <ul class='error alert alert-danger'>
-            @foreach ($app->errors() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    @endif
+    <p class='detail'>*Min. length: 10; alpha-numeric characters, dashes, underscores only</p>
+
     <form method='POST' action='/game' id='game'>
         <input type='radio' name='competitor' value='player'>
         <label for='player'>Player</label>
@@ -47,15 +41,24 @@
         <li>"Turns" continue until the score reaches or exceeds the "Goal".</li>
         <li> Whomever reaches "Goal" first Wins!</li>
     </ul>
+
+    @if ($app->errorsExist())
+        <ul class='error alert alert-danger'>
+            @foreach ($app->errors() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif
+
     {{-- Display Output of Results from AppController --}}
     @if ($competitor)
         <div class='results'>
             {{-- TESTING output check presence of values from AppController for index method while no persisted data values will be null --}}
             While data not yet stored if value is not null This is a blade if statement to test view {{ $turns }}, enter variable
-            {{ $playerTurn }} player turn integer will display if not null.
+            {{ $player_turn }} player turn integer will display if not null.
             {{ $playerSum }} player sum integer will display if not null.
-            {{ $opponentTurn }} opponent turn integer will display if not null.
-            {{ $opponentSum }} opponent sum will display if not null.
+            {{ $opponent_turn }} opponent turn integer will display if not null.
+            {{ $opponent_sum }} opponent sum will display if not null.
 
             {{-- TESTING output with values (game played) --}}
             @if ($winner)

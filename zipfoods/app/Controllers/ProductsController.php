@@ -92,17 +92,18 @@ class ProductsController extends Controller
         # The user is redirected back to /product/new
         # Maintaining flash data for the current inputs rather than clearing
 
-        $newSaved = [
-            'name' => $this->app->input('name'),
-            'sku' => $this->app->input('sku'),
-            'description' => $this->app->input('description'),
-            'price' => $this->app->input('price'),
-            'available' => $this->app->input('available'),
-            'weight' => $this->app->input('weight'),
-            'perishable' => $this->app->input('perishable')
-        ];
-        $this->app->db()->insert('products', $newSaved);
-
+        // $newSaved = [
+        //     'name' => $this->app->input('name'),
+        //     'sku' => $this->app->input('sku'),
+        //     'description' => $this->app->input('description'),
+        //     'price' => $this->app->input('price'),
+        //     'available' => $this->app->input('available'),
+        //     'weight' => $this->app->input('weight'),
+        //     'perishable' => $this->app->input('perishable')
+        // ];
+        // $this->app->db()->insert('products', $newSaved);
+        # a more terse statement utilizes inputAll()
+        $this->app->db()->insert('products', $this->app->inputAll());
         $this->app->redirect('/products/new', [
             'newSaved' => true,
         ]);

@@ -8,50 +8,79 @@ class AppController extends Controller
 {
     public function index()
     {
-        # flashing data to create confirmation message once
-        $playerNameSaved = $this->app->old('playerNameSaved');
 
-        # Access flashed data from database 
+        # flashing data to create confirmation message once
+        $player_name = $this->app->old('player_name');
+        $timein = $this->app->old('$timein');
+
+        # Access flashed data from database
         $competitor = $this->app->old('competitor');
         // $play = $this->app - old('play');
         $turn = $this->app->old('turn');
-        $playerTurn = $this->app->old('playerTurn');
-        $opponentTurn = $this->app->old('opponentTurn');
-        $playerSum = $this->app->old('playerSum');
-        $opponentSum = $this->app->old('opponentSum');
+        $player_turn = $this->app->old('player_turn');
+        $opponent_turn = $this->app->old('opponent_turn');
+        $player_sum = $this->app->old('player_sum');
+        $opponent_sum = $this->app->old('opponent_sum');
         $turns = $this->app->old('turns');
         $results = $this->app->old('results');
 
         # show the results on page
         return $this->app->view('index', [
-            'playerNameSaved' => $playerNameSaved,
+            'player_name' => $player_name,
+            'timein' => $timein,
             'competitor' => $competitor,
             // 'play' => $play,
             'turn' => $turn,
-            'playerTurn' => $playerTurn,
-            'opponentTurn' => $opponentTurn,
-            'playerSum' => $playerSum,
-            'opponentSum' => $opponentSum,
+            'player_turn' => $player_turn,
+            'opponent_turn' => $opponent_turn,
+            'player_sum' => $player_sum,
+            'opponent_sum' => $opponent_sum,
             'turns' => $turns,
             'results' => $results
 
         ]);
+        // dump($player_name);
     }
 
-    public function register()
+    public function playername()
     {
         $this->app->validate([
-            'playerName' => 'required|alphaNumericDash|minLength:10',
+            'player_name' => 'required|alphaNumericDash|minLength:10',
         ]);
-        $playerNameSaved = [
-            'playerName' => $this->app->input('playerName'),
-        ];
-        return $this->app->redirect('/');
-        # TODO: Display input name on index-view 
+        $player_name = $this->app->input('player_name');
+        $timein = date('Y-m-d H:i:s');
+        // $this->app->db()->insert('players', [
+        //     'timein' => date('Y-m-d H:i:s'),
+        // ]);
+
+
+        $this->app->db()->insert('players', [
+            'player_name' => $player_name,
+            'timein' => date('Y-m-d H:i:s')
+        ]);
+
+        // return $this->app->redirect('/');
+        # TODO: Display input name on index.blade persisted by db()
+        dump($player_name);
+        dump($timein);
+    }
+    public function register()
+    {
+        $player_name = $this->app->input('player_name');
+        // $timein = date('Y-m-d H:i:s');
+        $registered_player = ['players', [
+            'player_name' => $player_name,
+            'timein' => date('Y-m-d H:i:s') # DateTime
+        ]];
+        # Insert the player name and timestamp registered
+        $this->app->db()->insert('players', $registered_player);
     }
 
     public function game()
     {
+        $this->app->validate([
+            'competitor' => 'required'
+        ]);
         // dump($this->app->inputAll());
         $competitor = $this->app->input('competitor');
         $turn = $this->app->input('turn');
@@ -143,14 +172,24 @@ class AppController extends Controller
                 )
             );
         }
-        dump($competitor);
-        dump($play);
-        dump($turns);
-        dump($playerTurn);
-        dump($playerSum);
-        dump($opponentTurn);
-        dump($opponentSum);
-        dump($winner);
+        // dump($competitor);
+        // dump($play);
+        // dump([$turns]);
+        // dump($turn = [$turnP, $turnOp]);
+        // dump($playerTurn);
+        // dump($playerSum);
+        // dump($opponentTurn);
+        // dump($opponentSum);
+        // dump($winner);
+
+
+        //$this->app->db()->insert('rounds', [
+        //     'competitor' => $competitor,
+
+
+        //     'winner' => $winner,
+        //     'timestamp' => date(''Y-m-d H:i:s')
+        // ]);
     }
     public function history()
     {
