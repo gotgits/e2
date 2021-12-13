@@ -13,9 +13,9 @@ class AppController extends Controller
         $player_name = $this->app->old('player_name');
         $timein = $this->app->old('$timein');
         $player_saved = $this->app->old('player_saved');
-
-        # Game variables flash data
         $competitor = $this->app->old('competitor');
+
+        # Game variables flash data     
         $turn = $this->app->old('turn');
         $player_turn = $this->app->old('player_turn');
         $opponent_turn = $this->app->old('opponent_turn');
@@ -46,7 +46,6 @@ class AppController extends Controller
                 'winner' => $winner,
             ]
         ]);
-        // dump($player_name);
     }
 
     public function playerlog()
@@ -54,34 +53,33 @@ class AppController extends Controller
         $this->app->validate([
             'player_name' => 'required|alphaNumericDash|minLength:10',
             ]);
-            $player_name = $this->app->input('player_name');
-            $competitor = $this->app->input('competitor');
-            $timein = date('Y-m-d H:i:s');
-            $this->app->db()->insert('players', [
+            
+        $player_name = $this->app->input('player_name');
+        $competitor = $this->app->input('competitor');
+        $timein = date('Y-m-d H:i:s');
+        $this->app->db()->insert('players', [
             'player_name' => $player_name,
             'competitor' => $competitor,
             'timein' => date('Y-m-d H:i:s')
-        ]);
-        
-        $this->app->redirect('/', [
-            'player_saved' => true, 
-            'player_name' => $this->app->input('player_name')
-        ]);
-    }
-    
+            ]);
+            
+            $player = $player_saved;
+            $players = $this->app->db()->all('players');
+            
+            $this->app->redirect('/', [
+                'player_saved' => true, 
+                'player_name' => $this->app->input('player_name'),
+                'competitor' => $this->app->input('competitor'),
+                'timein' => $this->app->input('timein')
+                ]);
+            }
+
     public function register()
     {
-        // $player_saved = $this->app->old('player_saved');
-        // $player_name = $this->app->old('player_name');
-        // $competitor = $this->app->old('competitor');
-        
-        # Insert the player name and timestamp registered
-         
-         $this->app->db()->insert('players', $player_saved);
-         $this->app->db()->insert('players', $competitor);
-        //  dump($this->app->db()->all('players'));
-
-        return $this->app->view('/register');
+        $player_saved = $this->app->old('player_saved');
+        $player = $player_saved;
+        $players = $this->app->db()->all('players');
+        return $this->app->view('register', ['players' => $players]);
     }
 
     public function game()
