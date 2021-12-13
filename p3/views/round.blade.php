@@ -5,11 +5,11 @@
 @endsection
 
 @section('content')
-    <h2 class="center">Game of Gnomes (Gèam Gnomes)</h2>
-    <h3 class="center">Round (Cuairt)</h3>
+    <h2 class="center">Round</h2>
+    <h3 class="center">Cuairt</h3>
 
 
 
-    <a href='/> &larr; Return to History (Till air ais gu eachdraidh)  </a>
+    <a href='/history' class='center'> &larr; Return to History (Till air ais gu eachdraidh) </a></p>
 
 @endsection

@@ -9,25 +9,29 @@ class AppController extends Controller
     public function index()
     {
 
-        # flashing data to create confirmation message once
+        # Player Log variables flash data
         $player_name = $this->app->old('player_name');
         $timein = $this->app->old('$timein');
+        $player_saved = $this->app->old('player_saved');
 
-        # Access flashed data from database
+        # Game variables flash data
         $competitor = $this->app->old('competitor');
-        // $play = $this->app - old('play');
         $turn = $this->app->old('turn');
         $player_turn = $this->app->old('player_turn');
         $opponent_turn = $this->app->old('opponent_turn');
         $player_sum = $this->app->old('player_sum');
         $opponent_sum = $this->app->old('opponent_sum');
         $turns = $this->app->old('turns');
+        $player_turns = $this->app->old('player_turns');
+        $opponent_turns = $this->app->old('opponent_turns');
+        $winner = $this->app->old('winner');
         $results = $this->app->old('results');
 
         # show the results on page
         return $this->app->view('index', [
             'player_name' => $player_name,
             'timein' => $timein,
+            'player_saved' => $player_saved,
             'competitor' => $competitor,
             // 'play' => $play,
             'turn' => $turn,
@@ -36,161 +40,109 @@ class AppController extends Controller
             'player_sum' => $player_sum,
             'opponent_sum' => $opponent_sum,
             'turns' => $turns,
-            'results' => $results
-
+            'results' => [
+                'player_turns' => $player_turns,
+                'opponent_turns' => $opponent_turns,
+                'winner' => $winner,
+            ]
         ]);
         // dump($player_name);
     }
 
-    public function playername()
+    public function playerlog()
     {
         $this->app->validate([
             'player_name' => 'required|alphaNumericDash|minLength:10',
-        ]);
-        $player_name = $this->app->input('player_name');
-        $timein = date('Y-m-d H:i:s');
-        // $this->app->db()->insert('players', [
-        //     'timein' => date('Y-m-d H:i:s'),
-        // ]);
-
-
-        $this->app->db()->insert('players', [
+            ]);
+            $player_name = $this->app->input('player_name');
+            $competitor = $this->app->input('competitor');
+            $timein = date('Y-m-d H:i:s');
+            $this->app->db()->insert('players', [
             'player_name' => $player_name,
+            'competitor' => $competitor,
             'timein' => date('Y-m-d H:i:s')
         ]);
-
-        // return $this->app->redirect('/');
-        # TODO: Display input name on index.blade persisted by db()
-        dump($player_name);
-        dump($timein);
+        
+        $this->app->redirect('/', [
+            'player_saved' => true, 
+            'player_name' => $this->app->input('player_name')
+        ]);
     }
+    
     public function register()
     {
-        $player_name = $this->app->input('player_name');
-        // $timein = date('Y-m-d H:i:s');
-        $registered_player = ['players', [
-            'player_name' => $player_name,
-            'timein' => date('Y-m-d H:i:s') # DateTime
-        ]];
+        // $player_saved = $this->app->old('player_saved');
+        // $player_name = $this->app->old('player_name');
+        // $competitor = $this->app->old('competitor');
+        
         # Insert the player name and timestamp registered
-        $this->app->db()->insert('players', $registered_player);
+         
+         $this->app->db()->insert('players', $player_saved);
+         $this->app->db()->insert('players', $competitor);
+        //  dump($this->app->db()->all('players'));
+
+        return $this->app->view('/register');
     }
 
     public function game()
     {
-        $this->app->validate([
-            'competitor' => 'required'
-        ]);
-        // dump($this->app->inputAll());
-        $competitor = $this->app->input('competitor');
-        $turn = $this->app->input('turn');
-        $playerSum = 0;
-        $opponentSum = 0;
         $goal = 25;
-        // $turn = 0;
-
-        $results = [];
-        $turns = [];
-
-        $magic = 11;
-        $bonus = 6;
-        $curse = 0;
-        $mystic = 1;
-        $wild = 15;
-
-
-        while ($turn = $playerSum < $goal && $opponentSum < $goal) {
-            $turnP = random_int(1, 10);
-            # calculating playerTurn with conditional variables to effect the outcome
-            if ($sumP = $turnP) {
-                if ($turnP == 5) {
-                    $sumP = $magic;
-                } elseif ($turnP == 4) {
-                    $sumP = $bonus;
-                } elseif ($turnP == 9) {
-                    $sumP = $curse;
-                } elseif ($turnP == 2) {
-                    $sumP = $mystic;
-                } elseif ($turnP == 7) {
-                    $sumP = $wild;
-                } else {
-                    $sumP = $turnP;
-                }
-            }
-            $playerTurn = $sumP;
-            $playerSum += $playerTurn;
-            if ($playerSum >= $goal) {
-            }
-
-            $turnOp = random_int(1, 10);
-            # calculating opponentTurn with conditional variables to effect the outcome
-            if ($sumOp = $turnOp) {
-                if ($turnOp == 5) {
-                    $sumOp = $magic;
-                } elseif ($turnOp == 4) {
-                    $sumOp = $bonus;
-                } elseif ($turnOp == 9) {
-                    $sumOp = $curse;
-                } elseif ($turnOp == 2) {
-                    $sumOp = $mystic;
-                } elseif ($turnOp == 7) {
-                    $sumOp = $wild;
-                } else {
-                    $sumOp = $turnOp;
-                }
-            }
-            $opponentTurn = $sumOp;
-            $opponentSum += $opponentTurn;
-            // checking round results for goal(winner Opponent)
-            if ($opponentSum >= $goal) {
-                // echo $opponentTurn." ".$competitorSum;
-            }
-            $play = $turn;
-            $turn = count($turns) + 1;
-
-            if ($winner = $playerSum >= $goal or $opponentSum >= $goal) {
-                if ($playerSum >= $goal) {
-                    $winner = 'Player';
-                } else {
-                    $winner = 'Opponent';
-                }
-                // return $winner;
-            }
-
-            // $winner = $competitor == $play;
-            // $turn = count($turns) + 1;
-            array_push(
-                $results,
-                array(
-                    'turn' => $turn,
-                    'turns' => $turns,
-                    'playerTurn' => $playerTurn,
-                    'playerSum' => $playerSum,
-                    'opponentTurn' => $opponentTurn,
-                    'opponentSum' => $opponentSum,
-                    'winner' => $winner,
-                )
-            );
+        $player_sum = 0;
+        $player_turns = [];
+        $opponent_sum = 0;
+        $opponent_turns = []; 
+    
+        while ($player_sum <= $goal && $opponent_sum <= $goal) {
+    
+            # Player
+            $points = $this->getPoints(); # See the code for this function below
+            $player_sum += $points; # Accumulate points
+            $player_turns[] = [$points, $player_sum]; # Build an array of turns, storing both the points and their sum
+    
+            # Opponent
+            $points = $this->getPoints(); # See the code for this function below
+            $opponent_sum += $points; # Accumulate points
+            $opponent_turns[] = [$points, $opponent_sum]; # Build an array of turns, storing both the points and their sum
         }
-        // dump($competitor);
-        // dump($play);
-        // dump([$turns]);
-        // dump($turn = [$turnP, $turnOp]);
-        // dump($playerTurn);
-        // dump($playerSum);
-        // dump($opponentTurn);
-        // dump($opponentSum);
-        // dump($winner);
-
-
-        //$this->app->db()->insert('rounds', [
-        //     'competitor' => $competitor,
-
-
-        //     'winner' => $winner,
-        //     'timestamp' => date(''Y-m-d H:i:s')
-        // ]);
+    
+        $winner = ($player_sum >= $goal or $opponent_sum >= $goal) ? 'player' : 'opponent';
+    
+        # Build an array that contains full details of a "round" of the game
+        # Details include each "turn" for each player/opponent that include points/sums
+        $results = [
+                'player_turns' => $player_turns,
+                'opponent_turns' => $opponent_turns,
+                'winner' => $winner,
+        ];
+    
+        # Test that results contains the data we expect
+        // dump($results);
     }
+    
+    private function getPoints()
+    {
+        # Create the points with conditions from the outcome of each "turn"
+        # Utilized in the while loop which accumulates each "turn" until "goal or more" 
+
+        # Array of special numbers, keys=> are value that determine points,
+        # The =>value is the random number that begins each turn
+        $special_numbers = [
+            11 => 5, # Magic
+            6 => 4, # Bonus
+            0  => 9, # Curse
+            1 => 2, # Mystic
+            15 => 7 # Wild
+            ];
+    
+        $random_number = random_int(1, 10);
+    
+        # Check if random number generated is "special"
+        $special_number = array_search($random_number, $special_numbers);
+    
+        return ($special_number) ? $special_number : $random_number;
+    }
+    
+
     public function history()
     {
         return $this->app->view('history');

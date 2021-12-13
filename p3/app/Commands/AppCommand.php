@@ -15,6 +15,7 @@ class AppCommand extends Command
     {
         $this->app->db()->createTable('players', [
             'player_name' => 'varchar(255)',
+            'competitor' => 'varchar(255)',
             'timein' => 'timestamp'
         ]);
 
@@ -33,13 +34,14 @@ class AppCommand extends Command
         $faker = Factory::create();
 
         for ($i = 10; $i > 0; $i--) {
-            $registered_player = [
+            $player_saved = [
                 'player_name' => $faker->name,
+                'competitor' => ['player', 'opponent'][rand(0, 1)],
                 'timein' => $faker->dateTimeBetween('-' . $i . ' days', '-' . $i . ' days')->format('Y-m-d H:i:s') # DateTime
             ];
             # Insert the player name and timestamp registered
-            $this->app->db()->insert('players', $registered_player);
+            $this->app->db()->insert('players', $player_saved);
         }
-        dump('players table has been seeded');
+        // dump('players table has been seeded');
     }
 }

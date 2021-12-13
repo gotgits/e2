@@ -16,7 +16,7 @@ $wild = 15;
 
 
 
-while ($turn = $playerSum < $goal && $opponentSum < $goal) {
+while ($playerSum < $goal && $opponentSum < $goal) {
     # calculating each turn with conditional variables to effect the outcome
     $turnP = random_int(1, 10);
     if ($sumP = $turnP) {
@@ -73,7 +73,7 @@ while ($turn = $playerSum < $goal && $opponentSum < $goal) {
 
     // }
     // When goal is met Winner
-    if ($winner = $playerSum >= $goal or $opponentSum >= $goal) {
+    if ($playerSum >= $goal or $opponentSum >= $goal) {
         if ($playerSum >= $goal) {
             $winner = 'Player';
         } else {

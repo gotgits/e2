@@ -96,8 +96,8 @@ h3 {
 
 .image {
 	margin: 1em;
-	width: 260px;
-	height: 260px;
+	width: 60%;
+	height: 60%;
 	border-radius: 5px;
 }
 
@@ -130,7 +130,7 @@ h3 {
 ul.left {
 	padding: 0 2em;
 	list-style-type: square;
-	list-style-position: inside;
+	list-style-position: outside;
 }
 .center {
 	text-align: center;
@@ -140,7 +140,7 @@ ul.left {
 	margin: -2em;
 }
 .inline {
-	display: inline;
+	display: inline-block;
 }
 .detail {
 	font-size: .9rem;
@@ -165,12 +165,12 @@ dt {
 }
 
 #logo {
-	width: 250px;
+	padding-left: 5%;
 }
 /*-- ******** FORM ******** --*/
 input,
 textarea {
-	font-size: 1.3rem;
+	font-size: 1.1rem;
 	color: var(--pewter);
 	border-radius: 7px;
 }
@@ -182,6 +182,7 @@ textarea {
 
 .btn {
 	margin: 10px;
+	border: 1px solid var(--imperial);
 	border-radius: 7px;
 	background-color: var(--pewter);
 }
@@ -191,6 +192,7 @@ label {
 	font-weight: bold;
 	font-size: 1.2rem;
 	margin-top: 5px;
+	padding-right: 10px;
 }
 
 ul.error {
