@@ -28,6 +28,7 @@
             <button type='submit' class='btn' id='enter' class='inline'>Enter</button>
             <p class='detail'>*Name is required to play. 
             Min. length: 10 characters; <br>alpha-numeric, dashes, underscores only</p>
+            <p class='center'><a href='/register' class='center'> View Registered Players Log </a> &rarr;</p>
         </div>      
     </form>
     <div class='center'>
