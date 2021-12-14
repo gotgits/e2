@@ -15,7 +15,7 @@
         @foreach ($players as $player)
               <dl>
                 <dt>{{ $player['player_name'] }}</dt>
-                    <dd>{{ $player['competitor']}}</dd>
+                    <dd>Player id: {{ $player['id'] }} &nbsp;Playing as: {{ $player['competitor']}}</dd>
                     <dd>{{ $player['timein']}}</dd>
               </dl>
         @endforeach
