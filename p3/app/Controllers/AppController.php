@@ -27,6 +27,7 @@ class AppController extends Controller
         $opponent_turns = $this->app->old('opponent_turns');
         $winner = $this->app->old('winner');
         $results = $this->app->old('results');
+        $result_saved = $this->app->old('result_saved');
 
         # show the results on page
         return $this->app->view('index', [
@@ -45,7 +46,8 @@ class AppController extends Controller
                 'player_turns' => $player_turns,
                 'opponent_turns' => $opponent_turns,
                 'winner' => $winner,
-            ]
+            ],
+            'result_saved' => $result_saved,
         ]);
     }
 
@@ -119,8 +121,7 @@ class AppController extends Controller
                 'winner' => $winner,
             ];
         $id = $this->app->param('id');
-        // $reviews = $this->app->db()->findByColumn('reviews', 'product_id', '=', $product['id']);
-
+        
         $this->app->db()->insert('rounds', [
                 'id' => $id,
                 'timestamp' => date('Y-m-d H:i:s'),
@@ -129,7 +130,7 @@ class AppController extends Controller
                 'winner' => $winner
             ]);
         
-        $result = $result_saved;
+        // $result = $result_saved;
         $round = $this->app->db()->findById('rounds', $id);
         $rounds = $this->app->db()->all('rounds');
         // $this->app->redirect('/', [
@@ -152,7 +153,7 @@ class AppController extends Controller
         // ]);
     
         # Test that results contains the data we expect
-        dump($results);
+        // dump($results);
         // dump($rounds[$round]);
         // dump($round[$results]);
     }
@@ -191,6 +192,7 @@ class AppController extends Controller
     public function round()
     {
         $id = $this->app->param('id');
+        $result_saved = $this->app->old('result_saved');
         
         $round = $this->app->db()->findById('rounds', $id);
 

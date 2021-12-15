@@ -1,4 +1,7 @@
 @extends('templates.master')
+{{-- @section('title')
+    Game of Gnomes
+@endsection --}}
 
 @section('content')
     <h2 class='center margin'>Welcome (M'ath)</h2>
@@ -12,20 +15,23 @@
             <input type='radio' name='competitor' value='opponent' checked>
             <label for='competitor'>Opponent</label>
         </div>
-        <div>
+        <div >
             @if ($app->errorsExist())
-                <ul class='error alert alert-danger'>
+                <ul test='name-bad-input' test='validation-errors-alert' class='error alert alert-danger'>
                     @foreach ($app->errors() as $error)
                         <li>{{ $error }}</li>
                     @endforeach
                 </ul>
             @endif
+            
              @if ($player_saved)
-                <div class='alert alert-success margin'> Thank you,&nbsp; {{ $app->old('player_name') }} your name is registered.</div>
+                <div test='validation-errors-alert' class='alert alert-success margin'> Thank you,&nbsp; {{ $app->old('player_name') }} your name is registered.</div>
             @endif
+
             <label for='player_name'>Name</label>
-            <input type='text' name='player_name' id='player_name' placeholder=' * Your Name' autofocus>
-            <button type='submit' class='btn' id='enter' class='inline'>Enter</button>
+            <input test='name-input'  type='text' name='player_name' id='player_name' placeholder=' * Your Name' autofocus>
+            
+            <button test='submit-button' 'type='submit' class='btn' id='enter' class='inline'>Enter</button>
             <p class='detail'>*Name is required to play. 
             Min. length: 10 characters; <br>alpha-numeric, dashes, underscores only</p>
             <p class='center'><a href='/register' class='center'> View Registered Players Log </a> &rarr;</p>
@@ -33,7 +39,7 @@
     </form>
     <div class='center'>
         <form method='POST' action='/game' id='game'>
-            <button type='submit' name='play' id='play' value='play' class='btn'>Play Game!</button>
+            <button test='submit-play-button' type='submit' name='play' id='play' value='play' class='btn'>Play Game!</button>
         </form>
         <p><a href='/history' class='center'> View Game History </a> &rarr;</p>
         <p class='details'>Faic eachdraidh geama</p>

@@ -45,9 +45,11 @@ class AppCommand extends Command
         for ($i = 10; $i > 0; $i--) {
             $round = [
                 'timestamp' => $faker->dateTimeBetween('-' . $i . ' days', '-' . $i . ' days')->format('Y-m-d H:i:s'),
+                $result_saved = [
                 'player_turns' => [random_int(0, 10)],
                 'opponent_turns' => [random_int(0, 10)],
                 'winner' => ['player', 'opponent'][rand(0, 1)],
+                ]
             ];
             $this->app->db()->insert('rounds', $round);
         }
