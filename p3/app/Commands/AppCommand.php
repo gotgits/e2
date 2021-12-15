@@ -11,7 +11,6 @@ class AppCommand extends Command
         $this->migrate();
         $this->seedPlayers();
         $this->seedRounds();
-        $this->seedResult();
     }
     public function migrate()
     {
@@ -23,17 +22,17 @@ class AppCommand extends Command
 
 
         $this->app->db()->createTable('rounds', [
-            'player_name' => 'varchar(255)',
-            'competitor' => 'varchar(255)',
             'timestamp' => 'timestamp',
-            'player_turns' => 'int',
-            'opponent_turns' => 'int',
+            'player_turns' => 'varchar(255)',
+            'opponent_turns' => 'varchar(255)',
+            // 'player_turns' => 'int',
+            // 'opponent_turns' => 'int',
             'winner' => 'varchar(255)',
         ]);
 
         $this->app->db()->createTable('result', [
-            'player_turns' => 'int',
-            'opponent_turns' => 'int',
+            'player_turns' => 'varchar(255)',
+            'opponent_turns' => 'varchar(255)',
             'winner' => 'varchar(255)',
         ]);
     }
@@ -43,14 +42,14 @@ class AppCommand extends Command
         $faker = Factory::create();
 
         for ($i = 10; $i > 0; $i--) {
+
             $round = [
                 'timestamp' => $faker->dateTimeBetween('-' . $i . ' days', '-' . $i . ' days')->format('Y-m-d H:i:s'),
-                $result_saved = [
-                'player_turns' => [random_int(0, 10)],
-                'opponent_turns' => [random_int(0, 10)],
-                'winner' => ['player', 'opponent'][rand(0, 1)],
-                ]
+                'player_turns' => implode(',', [random_int(1, 10)]), # SB: Convert the array to a string of comma separated values
+                'opponent_turns' => implode(',', [random_int(1, 10)]), # SB: Convert the array to a string of comma separated values
+                'winner' => ['player', 'opponent'][rand(0, 1)]
             ];
+            
             $this->app->db()->insert('rounds', $round);
         }
         // dump('rounds table has been seeded');
@@ -71,15 +70,15 @@ class AppCommand extends Command
         }
     }
 
-    public function seedResult()
-    {
-        for ($i = 10; $i > 0; $i--) {
-            $result_saved = [
-                'player_turns' => [rand(0, 10)],
-                'opponent_turns' => [rand(0, 10)],
-                'winner' => ['player', 'opponent'][rand(0, 1)],
-            ];
-            $this->app->db()->insert('result', $result_saved);
-        }
-    }
+    // public function seedResult()
+    // {
+    //     for ($i = 10; $i > 0; $i--) {
+    //         $result_saved = [
+    //             'player_turns' => [rand(0, 10)],
+    //             'opponent_turns' => [rand(0, 10)],
+    //             'winner' => ['player', 'opponent'][rand(0, 1)],
+    //         ];
+    //         $this->app->db()->insert('result', $result_saved);
+    //     }
+    // }
 }

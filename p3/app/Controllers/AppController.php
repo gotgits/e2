@@ -112,27 +112,43 @@ class AppController extends Controller
         }
     
         $winner = ($player_sum >= $goal or $opponent_sum >= $goal) ? 'player' : 'opponent';
-    
+
         # Build an array that contains full details of a "round" of the game
         # Details include each "turn" for each player/opponent that include points/sums
+        
         $results = [
                 'player_turns' => $player_turns,
                 'opponent_turns' => $opponent_turns,
                 'winner' => $winner,
             ];
+
+        $playerTurnsAsString = implode(",", $player_turns);
+        $opponentTurnsAsString = implode(",", $opponent_turns);
+ 
+        $player_turns = $playerTurnsAsString;
+        $opponent_turns = $opponentTurnsAsString;
+
+
         $id = $this->app->param('id');
-        
+
+        // $this->app->db()->insert('rounds', $this->app->inputAll());
         $this->app->db()->insert('rounds', [
-                'id' => $id,
                 'timestamp' => date('Y-m-d H:i:s'),
                 'player_turns' => $player_turns,
                 'opponent_turns' => $opponent_turns,
                 'winner' => $winner
             ]);
-        
-        // $result = $result_saved;
-        $round = $this->app->db()->findById('rounds', $id);
+
+            // $this->app->db()->insert('rounds', [
+            //     'timestamp' => date('Y-m-d H:i:s'),
+            //     'player_turns' => implode(",", $player_turns),
+            //     'opponent_turns' => implode(",", $opponent_turns),
+            //     'winner' => $winner
+            // ]);
         $rounds = $this->app->db()->all('rounds');
+        $round = $this->app->db()->findById('rounds', $id);
+        // $player_turns = explode(",", $round->player_turns);  # This should yield an array of turns
+        // $opponent_turns = explode(",", $round->opponent_turns);
         // $this->app->redirect('/', [
         //     'round' => true,
         //     'id' => $this->app-> param('id'),
@@ -153,9 +169,11 @@ class AppController extends Controller
         // ]);
     
         # Test that results contains the data we expect
-        // dump($results);
-        // dump($rounds[$round]);
-        // dump($round[$results]);
+        dump($results);
+        dump($rounds);
+        dump($round);
+        // dump($this->app->db()->all('rounds'));
+        // dump($round->fetch('player_turns'));
     }
     
     private function getPoints()
@@ -192,7 +210,8 @@ class AppController extends Controller
     public function round()
     {
         $id = $this->app->param('id');
-        $result_saved = $this->app->old('result_saved');
+        $player_turns = explode(",", $round->player_turns);  # This should yield an array of turns
+        $opponent_turns = explode(",", $round->opponent_turns);
         
         $round = $this->app->db()->findById('rounds', $id);
 

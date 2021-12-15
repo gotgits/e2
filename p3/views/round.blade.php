@@ -5,8 +5,7 @@
 @endsection
 
 @section('content')
-    <h2 class="center">Round Details</h2>
-    <h3 class="center">Cuairt</h3>
+    <h2 class="center">Round Details (Cuairt)</h2>
         <dl>
             <dt>Round id: {{ $round['id']}}</dt> 
                 <dd>Competitor name: {{ $round['player_name']}}</dd>

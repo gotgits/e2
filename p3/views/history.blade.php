@@ -5,8 +5,7 @@
 @endsection
 
 @section('content')
-    <h2 class='center margin'>Game History</h2>
-    <h3 class="center">Eachdraidh geama</h3>   
+    <h2 class='center margin'>Game History (Eachdraidh geama)</h2>
         <ul>
             @foreach ($rounds as $round)
             <li><a href='/round?id='{{ $round['id'] }}'>{{ $round['timein']}}</a></li>
