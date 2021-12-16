@@ -62,22 +62,17 @@
     </ul>
 
     {{-- Display Output of Results from AppController --}}
-    @if ($competitor)
-        <div class='results'>
-            {{-- TESTING output check presence of values from AppController for index method while no persisted data values will be null --}}
-            While data not yet stored if value is not null This is a blade if statement to test view {{ $turns }}, enter variable
-            {{ $player_turn }} player turn integer will display if not null.
-            {{ $playerSum }} player sum integer will display if not null.
-            {{ $opponent_turn }} opponent turn integer will display if not null.
-            {{ $opponent_sum }} opponent sum will display if not null.
+    
+    @if($results)
+    <div class='results'>
+        Winner: {{ $results['winner'] }}
 
-            {{-- TESTING output with values (game played) --}}
-            @if ($winner)
-                <span class=''>Opponent Wins</span>
-            @else
-                <span class=''>Player Wins</span>
-            @endif
+        Player turns:
+        @foreach($results['player_turns'] as $turn)
+            Roll: {{ $turn[0] }}
+            Sum: {{ $turn[1] }}
+        @endforeach
+    </div>
     @endif
-        </div>
    
 @endsection
