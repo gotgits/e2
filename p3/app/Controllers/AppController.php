@@ -13,6 +13,8 @@ class AppController extends Controller
         $timein = $this->app->old('$timein');
         $player_saved = $this->app->old('player_saved');
         $competitor = $this->app->old('competitor');
+        // $turns = $this->app->old('turns');
+        $results = $this->app->old('results');
 
         # Game variables flash data
         $timestamp = $this->app->old('timestamp');
@@ -21,7 +23,8 @@ class AppController extends Controller
             $results = $results[0]; # Narrow it down to the first row returned
 
             # Step 1) Create an array of each turn
-            $results['player_turns'] = explode('|', $results['player_turns']);
+            $results['player_turns'] = explode(',', $results['player_turns']);
+            $results['opponent_turns'] = explode(',', $results['opponent_turns']);
 
             # Step) Create sub array of details of each turn
             $turns = [];
@@ -29,13 +32,21 @@ class AppController extends Controller
                 $turn = explode(',', $turn);
                 $turns[] = $turn;
             }
+            foreach ($results['opponent_turns'] as $turn) {
+                $turn = explode(',', $turn);
+                $turns[] = $turn;
+            }
 
-            $results['player_turns'] = $turns;
+            $results['player_turns']['opponent_turns'] = $turns;
         }
 
         # show the results on page
         return $this->app->view('index', [
+            
             'player_name' => $player_name,
+            'timein' => $timein,
+            'player_saved' => $player_saved,
+            'competitor' => $competitor,
             'results' => $results,
         ]);
     }
@@ -114,17 +125,17 @@ class AppController extends Controller
         $playerTurnAsString = '';
         foreach ($player_turns as $turn) {
             $turnAsString = implode(",", $turn); # Convert each turn to a string
-            $playerTurnAsString .= $turnAsString . "|";
+            $playerTurnAsString .= $turnAsString . ";";
         }
-        $playerTurnAsString = trim($playerTurnAsString, '|'); # Remove pipe character from end
+        $playerTurnAsString = trim($playerTurnAsString, ';'); # Remove pipe character from end
 
 
         $opponentTurnsAsString = '';
         foreach ($opponent_turns as $turn) {
             $turnAsString = implode(",", $turn); # Convert each turn to a string
-            $opponentTurnsAsString .= $turnAsString . "|";
+            $opponentTurnsAsString .= $turnAsString . ";";
         }
-        $opponentTurnsAsString = trim($opponentTurnsAsString, '|'); # Remove pipe character from end
+        $opponentTurnsAsString = trim($opponentTurnsAsString, ';'); # Remove pipe character from end
 
         $player_turns = $playerTurnAsString;
         $opponent_turns = $opponentTurnsAsString;

@@ -41,6 +41,28 @@
         <form method='POST' action='/game' id='game'>
             <button test='submit-play-button' type='submit' name='play' id='play' value='play' class='btn'>Play Game!</button>
         </form>
+
+            {{-- Display Output of Results from AppController --}}    
+        @if($results)
+        <div class='results'>
+            <dl>
+                <dt>Player turns:</dt>
+                <dd>
+                    @foreach($results['player_turns'] as $turn)
+                         Roll: {{ $turn[0] }} Sum: {{ $turn[1] }}
+                    @endforeach
+                </dd>    
+
+                <dt>Opponent turns:</dt>
+                <dd>
+                    @foreach($results['opponent_turns'] as $turn)
+                        Roll: {{ $turn[0] }} Sum: {{ $turn[1] }}
+                    @endforeach
+                </dd>
+                <dt>Winner:</dt> <dd>{{ $results['winner'] }}</dd>
+            </dl>
+        </div>
+        @endif
         <p><a href='/history' class='center'> View Game History </a> &rarr;</p>
         <p class='details'>Faic eachdraidh geama</p>
     </div>
@@ -60,19 +82,5 @@
         <li>"Turns" continue until the score reaches or exceeds the "Goal".</li>
         <li> Whomever reaches "Goal" first Wins!</li>
     </ul>
-
-    {{-- Display Output of Results from AppController --}}
-    
-    @if($results)
-    <div class='results'>
-        Winner: {{ $results['winner'] }}
-
-        Player turns:
-        @foreach($results['player_turns'] as $turn)
-            Roll: {{ $turn[0] }}
-            Sum: {{ $turn[1] }}
-        @endforeach
-    </div>
-    @endif
    
 @endsection
