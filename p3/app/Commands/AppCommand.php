@@ -22,6 +22,7 @@ class AppCommand extends Command
 
         $this->app->db()->createTable('rounds', [
             'timestamp' => 'timestamp',
+            'id_turns' => 'varchar(255)',
             'player_turns' => 'varchar(255)',
             'opponent_turns' => 'varchar(255)',
             'winner' => 'varchar(255)',
