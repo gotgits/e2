@@ -25,14 +25,6 @@ class AppCommand extends Command
             'timestamp' => 'timestamp',
             'player_turns' => 'varchar(255)',
             'opponent_turns' => 'varchar(255)',
-            // 'player_turns' => 'int',
-            // 'opponent_turns' => 'int',
-            'winner' => 'varchar(255)',
-        ]);
-
-        $this->app->db()->createTable('result', [
-            'player_turns' => 'varchar(255)',
-            'opponent_turns' => 'varchar(255)',
             'winner' => 'varchar(255)',
         ]);
     }
@@ -42,7 +34,6 @@ class AppCommand extends Command
         $faker = Factory::create();
 
         for ($i = 10; $i > 0; $i--) {
-
             $round = [
                 'timestamp' => $faker->dateTimeBetween('-' . $i . ' days', '-' . $i . ' days')->format('Y-m-d H:i:s'),
                 'player_turns' => implode(',', [random_int(1, 10)]), # SB: Convert the array to a string of comma separated values

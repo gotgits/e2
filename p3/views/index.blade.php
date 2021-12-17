@@ -44,22 +44,22 @@
 
             {{-- Display Output of Results from AppController --}}    
         @if($results)
-        <div class='results'>
+        <div>
             <dl>
-                <dt>Player turns:</dt>
-                <dd>
+                <dt class='left'>Player turn:</dt>
+                <dd class='inline'>
                     @foreach($results['player_turns'] as $turn)
-                         Roll: {{ $turn[0] }} Sum: {{ $turn[1] }}
+                        {{ $turn[0] }} → {{ $turn[1] }} 
                     @endforeach
                 </dd>    
 
-                <dt>Opponent turns:</dt>
-                <dd>
+                <dt class='left'>Opponent turn:</dt>
+                <dd class='inline'>
                     @foreach($results['opponent_turns'] as $turn)
-                        Roll: {{ $turn[0] }} Sum: {{ $turn[1] }}
+                       {{ $turn[0] }} →  {{ $turn[1] }}
                     @endforeach
                 </dd>
-                <dt>Winner:</dt> <dd>{{ $results['winner'] }}</dd>
+                <dt class='left'>Winner: {{ $results['winner'] }}</dt>
             </dl>
         </div>
         @endif
