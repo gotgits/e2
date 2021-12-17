@@ -47,20 +47,21 @@
         <div>
             <dl>
                 <dt class='left'>Player turn:</dt>
-                <dd class='inline'>
+                <dd class='inline left'>
                     @foreach($results['player_turns'] as $turn)
                         {{ $turn[0] }} → {{ $turn[1] }} 
                     @endforeach
                 </dd>    
 
                 <dt class='left'>Opponent turn:</dt>
-                <dd class='inline'>
+                <dd class='inline left'>
                     @foreach($results['opponent_turns'] as $turn)
                        {{ $turn[0] }} →  {{ $turn[1] }}
                     @endforeach
                 </dd>
                 <dt class='left'>Winner: {{ $results['winner'] }}</dt>
-                <dd>Round: {{ $results['id'] }}</dd>
+                <dd class='left'>Round: {{ $results['id'] }}</dd>
+                <dd class='left'> {{ $results['timestamp'] }}</dd>
             </dl>
         </div>
         @endif

@@ -9,7 +9,11 @@
     {{-- <h3></h3> --}}
         <dl>  
             <dt>Round: {{ $results['id'] }}</dt>                    
-                <dd>Timestamp: {{ $results['timestamp']}}</dd>   
+                <dd>Timestamp: {{ $results['timestamp']}}</dd> 
+            
+             @foreach ($round as $id)
+            <dd>{{ $round['id'] }}'>Round: {{ $round['id'] }} – {{ $round['timestamp']}}</dd>
+            @endforeach  
             {{-- <dt class='left'>Player turn:</dt>
                 <dd class='inline'>
                     @foreach($results['player_turns'] as $turn)

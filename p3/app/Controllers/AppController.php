@@ -18,6 +18,7 @@ class AppController extends Controller
         $winner = $this->app->old('winner');
         $results = $this->app->old('results');
         $timestamp = $this->app->old('timestamp');
+        $id_turns = $this->app->old('id_turns');
         
 
         if ($timestamp) {
@@ -27,6 +28,7 @@ class AppController extends Controller
             # Step 1) Create an array of each turn
             $results['player_turns'] = explode(',', $results['player_turns']);
             $results['opponent_turns'] = explode(',', $results['opponent_turns']);
+            $results['id_turns'] = explode(',', $results['id_turns']);
 
             # Step) Create sub array of details of each turn
             $turns_player = [];
@@ -39,6 +41,7 @@ class AppController extends Controller
                 }
                 $turns_player[] = $turn;
             }
+            $turns_opponent = [];
             foreach ($results['opponent_turns'] as $turn) {
                 $turn = explode(',', $turn);
                 if (!isset($turn[1])) {
@@ -49,8 +52,20 @@ class AppController extends Controller
                 $turns_opponent[] = $turn;
             }
 
+            $turns_id = [];
+            foreach ($results['id_turns'] as $turn) {
+                $turn = explode(',', $turn);
+                if (!isset($turn[1])) {
+                    $turn[1]="";
+                } else {
+                    $turn[1];
+                }
+                $turns_id[] = $turn;
+            }
+
             $results['player_turns'] = $turns_player;
             $results['opponent_turns'] = $turns_opponent;
+            $results['id_turns'] = $turns_id;
         }
 
         # show the results on page
@@ -62,6 +77,7 @@ class AppController extends Controller
             'results' => $results,
             'player_turns' => $player_turns,
             'opponent_turns' => $opponent_turns,
+            'id_turns' => $id_turns,
             'winner' => $winner,
         ]);
     }
@@ -74,9 +90,12 @@ class AppController extends Controller
         $opponent_sum = 0;
         $opponent_turns = [];
         $timestamp = date('Y-m-d H:i:s');
+        $turn = 0;
+        $id_turns = [];
+       
     
         while ($player_sum <= $goal && $opponent_sum <= $goal) {
-    
+   
             # Player
             $points = $this->getPoints(); # Helper function
             $player_sum += $points; # Accumulate points
@@ -94,6 +113,8 @@ class AppController extends Controller
             } else {
                 $winner = 'Opponent';
             }
+            # Turns id
+            $id_turns = $this->app->$turn;  
         }
 
         # Build an array that contains full details of a "round" of the game
@@ -101,6 +122,7 @@ class AppController extends Controller
         $results = [
                 'player_turns' => $player_turns,
                 'opponent_turns' => $opponent_turns,
+                'id_turns' => $id_turns,
                 'winner' => $winner,
             ];
 
@@ -111,7 +133,6 @@ class AppController extends Controller
         }
         $playerTurnAsString = trim($playerTurnAsString, ' | Next roll: '); # Remove last
 
-
         $opponentTurnsAsString = '';
         foreach ($opponent_turns as $turn) {
             $turnAsString = implode(",", $turn); # Convert each turn to a string
@@ -119,15 +140,23 @@ class AppController extends Controller
         }
         $opponentTurnsAsString = trim($opponentTurnsAsString, ' | Next roll: '); # Remove last
 
+        // $idTurnsAsString = '';
+        // foreach ($id_turns as $turn) {
+        //     $turnAsString = implode(",", $turn); # Convert each turn to a string
+        //     $idTurnsAsString .= $turnAsString . " |  ";
+        // }
+        // $idTurnsAsString = trim($idTurnsAsString, ' |  '); # Remove last
+
         # Nested arrays as strings
         $player_turns = $playerTurnAsString;
         $opponent_turns = $opponentTurnsAsString;
+        $id_turns = $idTurnsAsString;
 
-        $this->app->db()->insert('rounds', [
-            // 'id' => $id,
+        $this->app->db()->insert('rounds', [           
             'timestamp' => $timestamp,
+            'id_turns' => $id_turns,
             'player_turns' => $player_turns,
-            'opponent_turns' => $opponent_turns,
+            'opponent_turns' => $opponent_turns,           
             'winner' => $winner
         ]);
 
@@ -141,20 +170,33 @@ class AppController extends Controller
     }
 
     public function round()
-    {
-        $rounds = $this->app->db()->all('rounds');
-        $rounds = $this->app->old('rounds');       
-        $id = $this->app->param('id');  
-        $id = $this->app->db()->findByColumn('rounds', 'id', '=', $id);
-        $round = $this->app->db()->findById('rounds', $id);
-        $round['id'] = explode(',', $round['id']);   
+    {    
+
         
-        $id['round'] = explode(',', $id['round']);
+        $results =[];
+        $id = $this->app->param('id'); 
+        $results['id'] = explode(',', $results['id']);
+        $idAsString = '';
+        foreach ($id as $turn) {
+            $turnAsString = implode(",", $turn); # Convert each turn to a string
+            $idsAsString .= $turnAsString . " |  ";
+        }
+        $idAsString = trim($idsAsString, ' |  '); # Remove last
+        
+        $round = $this->app->db()->findById('rounds', $results['id']);
+        $round['id'] = explode(',', $round[$results['id']]); 
+        
+
+        
+        // $id['round'] = explode(',', $id['round']);
+        
 
             
-            dump($round);
-            dump($id);
+            dump($results['id']);
+            // dump($id);
             dump($timestamp);
+            // dump($results['id_turns']);
+            // dump($results['timestamp']);
         
             # show the results on page
         // return $this->app->view('round', [
