@@ -20,7 +20,6 @@ class AppCommand extends Command
             'timein' => 'timestamp'
         ]);
 
-
         $this->app->db()->createTable('rounds', [
             'timestamp' => 'timestamp',
             'player_turns' => 'varchar(255)',
@@ -38,7 +37,7 @@ class AppCommand extends Command
                 'timestamp' => $faker->dateTimeBetween('-' . $i . ' days', '-' . $i . ' days')->format('Y-m-d H:i:s'),
                 'player_turns' => implode(',', [random_int(1, 10)]), # SB: Convert the array to a string of comma separated values
                 'opponent_turns' => implode(',', [random_int(1, 10)]), # SB: Convert the array to a string of comma separated values
-                'winner' => ['player', 'opponent'][rand(0, 1)]
+                'winner' => ['Player', 'Opponent'][rand(0, 1)]
             ];
             
             $this->app->db()->insert('rounds', $round);
@@ -60,16 +59,4 @@ class AppCommand extends Command
             $this->app->db()->insert('players', $player_saved);
         }
     }
-
-    // public function seedResult()
-    // {
-    //     for ($i = 10; $i > 0; $i--) {
-    //         $result_saved = [
-    //             'player_turns' => [rand(0, 10)],
-    //             'opponent_turns' => [rand(0, 10)],
-    //             'winner' => ['player', 'opponent'][rand(0, 1)],
-    //         ];
-    //         $this->app->db()->insert('result', $result_saved);
-    //     }
-    // }
 }

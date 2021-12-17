@@ -11,13 +11,15 @@ class AppController extends Controller
         $timein = $this->app->old('$timein');
         $player_saved = $this->app->old('player_saved');
         $competitor = $this->app->old('competitor');
+
+        # Game variables flash data
         $player_turns = $this->app->old('player_turns');
         $opponent_turns = $this->app->old('opponent_turns');
         $winner = $this->app->old('winner');
         $results = $this->app->old('results');
-
-        # Game variables flash data
         $timestamp = $this->app->old('timestamp');
+        
+
         if ($timestamp) {
             $results = $this->app->db()->findByColumn('rounds', 'timestamp', '=', $timestamp);
             $results = $results[0]; # Narrow it down to the first row returned
@@ -51,10 +53,8 @@ class AppController extends Controller
             $results['opponent_turns'] = $turns_opponent;
         }
 
-
         # show the results on page
         return $this->app->view('index', [
-            
             'player_name' => $player_name,
             'timein' => $timein,
             'player_saved' => $player_saved,
@@ -78,12 +78,12 @@ class AppController extends Controller
         while ($player_sum <= $goal && $opponent_sum <= $goal) {
     
             # Player
-            $points = $this->getPoints(); # See the code for this function below
+            $points = $this->getPoints(); # Helper function
             $player_sum += $points; # Accumulate points
             $player_turns[] = [$points, $player_sum]; # Build an array of turns, storing both the points and their sum
     
             # Opponent
-            $points = $this->getPoints(); # See the code for this function below
+            $points = $this->getPoints(); # Helper function
             $opponent_sum += $points; # Accumulate points
             $opponent_turns[] = [$points, $opponent_sum]; # Build an array of turns, storing both the points and their sum
         }
@@ -98,7 +98,6 @@ class AppController extends Controller
 
         # Build an array that contains full details of a "round" of the game
         # Details include each "turn" for each player/opponent that include points/sums
-        
         $results = [
                 'player_turns' => $player_turns,
                 'opponent_turns' => $opponent_turns,
@@ -108,39 +107,67 @@ class AppController extends Controller
         $playerTurnAsString = '';
         foreach ($player_turns as $turn) {
             $turnAsString = implode(",", $turn); # Convert each turn to a string
-            
             $playerTurnAsString .= $turnAsString . " | Next roll: ";
         }
-        $playerTurnAsString = trim($playerTurnAsString, ' | Next roll: '); # Remove pipe character from end
+        $playerTurnAsString = trim($playerTurnAsString, ' | Next roll: '); # Remove last
 
 
         $opponentTurnsAsString = '';
         foreach ($opponent_turns as $turn) {
             $turnAsString = implode(",", $turn); # Convert each turn to a string
-                       
             $opponentTurnsAsString .= $turnAsString . " | Next roll: ";
         }
-        $opponentTurnsAsString = trim($opponentTurnsAsString, ' | Next roll: '); # Remove pipe character from end
+        $opponentTurnsAsString = trim($opponentTurnsAsString, ' | Next roll: '); # Remove last
 
+        # Nested arrays as strings
         $player_turns = $playerTurnAsString;
         $opponent_turns = $opponentTurnsAsString;
 
-
-
-        // dump($player_turns);
-        // dump($opponent_turns);
-        // dump($results);
-
         $this->app->db()->insert('rounds', [
-                'timestamp' => $timestamp,
-                'player_turns' => $player_turns,
-                'opponent_turns' => $opponent_turns,
-                'winner' => $winner
+            // 'id' => $id,
+            'timestamp' => $timestamp,
+            'player_turns' => $player_turns,
+            'opponent_turns' => $opponent_turns,
+            'winner' => $winner
         ]);
 
         $this->app->redirect('/', ['timestamp' => $timestamp]);
     }
     
+    public function history()
+    {
+        $rounds = $this->app->db()->all('rounds');
+        return $this->app->view('history', ['rounds' => $rounds]);
+    }
+
+    public function round()
+    {
+        $rounds = $this->app->db()->all('rounds');
+        $rounds = $this->app->old('rounds');       
+        $id = $this->app->param('id');  
+        $id = $this->app->db()->findByColumn('rounds', 'id', '=', $id);
+        $round = $this->app->db()->findById('rounds', $id);
+        $round['id'] = explode(',', $round['id']);   
+        
+        $id['round'] = explode(',', $id['round']);
+
+            
+            dump($round);
+            dump($id);
+            dump($timestamp);
+        
+            # show the results on page
+        // return $this->app->view('round', [
+        //     'id' => $id,
+        //     'timestamp' => $timestamp,
+        //     // 'results' => $results,
+        //     // 'player_turns' => $player_turns,
+        //     // 'opponent_turns' => $opponent_turns,
+        //     // 'winner' => $winner,
+        // ]);
+        
+    }
+
     private function getPoints()
     {
         # Create the points with conditions from the outcome of each "turn"
@@ -162,25 +189,6 @@ class AppController extends Controller
         $special_number = array_search($random_number, $special_numbers);
     
         return ($special_number) ? $special_number : $random_number;
-    }
-    
-
-    public function history()
-    {
-        $rounds = $this->app->db()->all('rounds');
-        // dump($rounds);
-        return $this->app->view('history', ['rounds' => $rounds]);
-    }
-
-    public function round()
-    {
-        $id = $this->app->param('id');
-        $player_turns = explode(",", $round->player_turns);  # This should yield an array of turns
-        $opponent_turns = explode(",", $round->opponent_turns);
-        
-        $round = $this->app->db()->findById('rounds', $id);
-
-        return $this->app->view('round', ['round' => $round]);
     }
 
     public function playerlog()
@@ -205,13 +213,13 @@ class AppController extends Controller
         $players = $this->app->db()->all('players');
             
         $this->app->redirect('/', [
-                'player_saved' => true,
-                'id' => $this->app-> param('id'),
-                'player_name' => $this->app->input('player_name'),
-                'competitor' => $this->app->input('competitor'),
-                'timein' => $this->app->input('timein')
-                ]);
-    }
+            'player_saved' => true,
+            'id' => $this->app-> param('id'),
+            'player_name' => $this->app->input('player_name'),
+            'competitor' => $this->app->input('competitor'),
+            'timein' => $this->app->input('timein')
+            ]);
+        }
 
     public function register()
     {

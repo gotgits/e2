@@ -60,6 +60,7 @@
                     @endforeach
                 </dd>
                 <dt class='left'>Winner: {{ $results['winner'] }}</dt>
+                <dd>Round: {{ $results['id'] }}</dd>
             </dl>
         </div>
         @endif
