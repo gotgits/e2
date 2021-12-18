@@ -22,7 +22,6 @@ class AppCommand extends Command
 
         $this->app->db()->createTable('rounds', [
             'timestamp' => 'timestamp',
-            'id_turns' => 'varchar(255)',
             'player_turns' => 'varchar(255)',
             'opponent_turns' => 'varchar(255)',
             'winner' => 'varchar(255)',
@@ -32,18 +31,19 @@ class AppCommand extends Command
     public function seedRounds()
     {
         $faker = Factory::create();
-
+        
         for ($i = 10; $i > 0; $i--) {
+            
             $round = [
                 'timestamp' => $faker->dateTimeBetween('-' . $i . ' days', '-' . $i . ' days')->format('Y-m-d H:i:s'),
-                'player_turns' => implode(',', [random_int(1, 10)]), # SB: Convert the array to a string of comma separated values
-                'opponent_turns' => implode(',', [random_int(1, 10)]), # SB: Convert the array to a string of comma separated values
+                'player_turns' => implode(',', [1,1,11,12,1,13,3,16,1,17]),
+                'opponent_turns' => implode(',',[11,11,3,14,10,24,1,25,6,31]),
+
                 'winner' => ['Player', 'Opponent'][rand(0, 1)]
             ];
             
             $this->app->db()->insert('rounds', $round);
         }
-        // dump('rounds table has been seeded');
     }
     
     public function seedPlayers()

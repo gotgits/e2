@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <h2 class='center margin'>Player Registration Log</h2>
+    <h2 class='center'>Player Registration Log</h2>
     <p class='center'>&larr; <a href='/'> Return to Game (Till air ais chun gheama)</a></p>
     <div id='player'>
         @if (!$players)
@@ -13,7 +13,7 @@
         @endif
 
         @foreach ($players as $player)
-              <dl>
+              <dl class='rounds'>
                 <dt id='name' test='player-name'>{{ $player['player_name'] }}</dt>
                     <dd id='choice'>Playing as: {{ $player['competitor']}}</dd>
                     <dd test='player-id' id='playerid'>Player id: {{ $player['id'] }}</dd>

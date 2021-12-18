@@ -95,30 +95,27 @@ h3 {
 }
 
 .image {
-	margin: 1em;
+	margin: 5pxm;
 	width: 40%;
 	height: 40%;
-	border-radius: 5px;
-}
-
-.results {
-	width: max-content;
-	font-weight: bold;
-	font-size: 1.2em;
-	line-height: 1.2em;
 }
 
 .winner {
 	color: var(--tealblue);
-	font-size: 2rem;
+	font-size: 1.6rem;
 }
 
-.history {
+.history a {
 	color: var(--olive);
+}
+
+.game a {
+	color: var(--peacock-blue);
 }
 
 .rounds {
 	padding: 1px;
+	color: var(--teal);
 }
 .right {
 	text-align: right;
@@ -134,10 +131,11 @@ ul.left {
 }
 .center {
 	text-align: center;
-	padding: 1.2em;
+	padding: 10px;
+	margin: -20px 0 0;
 }
 .margin {
-	margin: -2em;
+	margin: -10px 0 0;
 }
 .inline {
 	display: inline-block;
@@ -154,9 +152,7 @@ ul li {
 dl {
 	font-weight: normal;
 }
-/* dd {
-	margin-left: 1px;
-} */
+
 dd,
 dt {
 	line-height: 1.5;
@@ -192,6 +188,10 @@ textarea {
 	border-radius: 7px;
 	background-color: var(--pewter);
 }
+.btn a:hover,
+.btn a:active {
+	color: var(--salmon);
+}
 
 label {
 	text-transform: uppercase;
@@ -204,29 +204,3 @@ label {
 ul.error {
 	list-style-type: none;
 }
-a.history-link:link,
-a.history-link:visited,
-a.history-link:active,
-a.history-link:hover {
-	text-decoration: none;
-	color: var(--imperial);
-	cursor: pointer;
-	border: 1px solid var(--silver);
-	text-align: center;
-	padding: 15px;
-	margin: 15px;
-	width: 30%;
-	min-width: 300px;
-}
-
-a.history-link:hover {
-	border: 1px solid var(--black);
-}
-
-.history-name {
-	height: 50px;
-	font-size: 2rem;
-	margin: 5px 0 10px 0;
-	vertical-align: baseline;
-}
-/* @import url('https://fonts.googleapis.com/css2?family=Merienda:wght@400;700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap'); */

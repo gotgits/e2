@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 class AppController extends Controller
 {
+
     public function index()
     {
         # Player Log variables flash data
@@ -12,89 +13,39 @@ class AppController extends Controller
         $player_saved = $this->app->old('player_saved');
         $competitor = $this->app->old('competitor');
 
-        # Game variables flash data
-        $player_turns = $this->app->old('player_turns');
-        $opponent_turns = $this->app->old('opponent_turns');
-        $winner = $this->app->old('winner');
-        $round = $this->app->old('round');
+        # If the game was just played, we'll have a "timestamp" in flash data
+        # If it exists, use it to look up the results frmo the database
         $timestamp = $this->app->old('timestamp');
-        $id_turns = $this->app->old('id_turns');
-        
-
         if ($timestamp) {
             $round = $this->app->db()->findByColumn('rounds', 'timestamp', '=', $timestamp);
             $round = $round[0]; # Narrow it down to the first row returned
 
-            # Step 1) Create an array of each turn
-            $round['player_turns'] = explode(',', $round['player_turns']);
-            $round['opponent_turns'] = explode(',', $round['opponent_turns']);
-            $round['id_turns'] = explode(',', $round['id_turns']);
-
-            # Step) Create sub array of details of each turn
-            $turns_player = [];
-            foreach ($round['player_turns'] as $turn) {
-                $turn = explode(',', $turn);
-                if (!isset($turn[1])) {
-                    $turn[1]="";
-                } else {
-                    $turn[1];
-                }
-                $turns_player[] = $turn;
-            }
-            $turns_opponent = [];
-            foreach ($round['opponent_turns'] as $turn) {
-                $turn = explode(',', $turn);
-                if (!isset($turn[1])) {
-                    $turn[1]="";
-                } else {
-                    $turn[1];
-                }
-                $turns_opponent[] = $turn;
-            }
-
-            $turns_id = [];
-            foreach ($round['id_turns'] as $turn) {
-                $turn = explode(',', $turn);
-                if (!isset($turn[1])) {
-                    $turn[1]="";
-                } else {
-                    $turn[1];
-                }
-                $turns_id[] = $turn;
-            }
-
-            $round['player_turns'] = $turns_player;
-            $round['opponent_turns'] = $turns_opponent;
-            $round['id_turns'] = $turns_id;
+            # Decode the turn "arrays" that were stored as strings in the db
+            $round['player_turns'] = $this->convertTurnsFromStringToArray($round['player_turns']);
+            $round['opponent_turns'] = $this->convertTurnsFromStringToArray($round['opponent_turns']);
         }
 
-        # show the round on page
+        # Show the round on the page
         return $this->app->view('index', [
             'player_name' => $player_name,
             'timein' => $timein,
             'player_saved' => $player_saved,
             'competitor' => $competitor,
-            'round' => $round,
-            'player_turns' => $player_turns,
-            'opponent_turns' => $opponent_turns,
-            'id_turns' => $id_turns,
-            'winner' => $winner,
+            'round' => $round ?? null,
         ]);
     }
 
     public function game()
     {
+        # Intiailize variables
         $goal = 25;
         $player_sum = 0;
         $player_turns = [];
         $opponent_sum = 0;
         $opponent_turns = [];
         $timestamp = date('Y-m-d H:i:s');
-        $id = $this->app->param('id');
-        $turn = 0;
-        $id_turns = [];
        
-    
+        # Play the game
         while ($player_sum <= $goal && $opponent_sum <= $goal) {
    
             # Player
@@ -108,60 +59,23 @@ class AppController extends Controller
             $opponent_turns[] = [$points, $opponent_sum]; # Build an array of turns, storing both the points and their sum
         }
     
+        # Player or opponent has reached goal; determine winner
         if ($player_sum >= $goal or $opponent_sum >= $goal) {
-            if ($player_sum >= $goal) {
-                $winner = 'Player';
-            } else {
-                $winner = 'Opponent';
-            }
-            # Turns id
-            $id_turns = $this->app->$turn;  
+            $winner = $player_sum >= $goal ? 'Player' : 'Opponent';
         }
 
-        # Build an array that contains full details of a "round" of the game
-        # Details include each "turn" for each player/opponent that include points/sums
+        # Array of Round data to insert into the database includes each "turn" details
         $round = [
-                'id' => $id,
-                'player_turns' => $player_turns,
-                'opponent_turns' => $opponent_turns,
-                'id_turns' => $id_turns,
-                'winner' => $winner,
-            ];
-
-        $playerTurnAsString = '';
-        foreach ($player_turns as $turn) {
-            $turnAsString = implode(",", $turn); # Convert each turn to a string
-            $playerTurnAsString .= $turnAsString . " | Next roll: ";
-        }
-        $playerTurnAsString = trim($playerTurnAsString, ' | Next roll: '); # Remove last
-
-        $opponentTurnsAsString = '';
-        foreach ($opponent_turns as $turn) {
-            $turnAsString = implode(",", $turn); # Convert each turn to a string
-            $opponentTurnsAsString .= $turnAsString . " | Next roll: ";
-        }
-        $opponentTurnsAsString = trim($opponentTurnsAsString, ' | Next roll: '); # Remove last
-
-        // $idTurnsAsString = '';
-        // foreach ($id_turns as $turn) {
-        //     $turnAsString = implode(",", $turn); # Convert each turn to a string
-        //     $idTurnsAsString .= $turnAsString . " |  ";
-        // }
-        // $idTurnsAsString = trim($idTurnsAsString, ' |  '); # Remove last
-
-        # Nested arrays as strings
-        $player_turns = $playerTurnAsString;
-        $opponent_turns = $opponentTurnsAsString;
-        $id_turns = $idTurnsAsString;
-
-        $this->app->db()->insert('rounds', [           
             'timestamp' => $timestamp,
-            'id_turns' => $id_turns,
-            'player_turns' => $player_turns,
-            'opponent_turns' => $opponent_turns,           
+            'player_turns' => $this->convertTurnsFromArrayToString($player_turns),
+            'opponent_turns' => $this->convertTurnsFromArrayToString($opponent_turns),
             'winner' => $winner
-        ]);
+        ];
 
+        # Insert the round data into the database
+        $this->app->db()->insert('rounds', $round);
+
+        # Redirect back to the homepage display the results
         $this->app->redirect('/', ['timestamp' => $timestamp]);
     }
     
@@ -172,36 +86,19 @@ class AppController extends Controller
     }
 
     public function round()
-    {    
-        $id = $this->app->param('id');        
-        $round = $this->app->db()->findById('rounds', $round['id']);
-        $round['id'] = explode(',', $round[$round['id']]); 
-
-        dump($round);
-        
-    }
-
-    private function getPoints()
     {
-        # Create the points with conditions from the outcome of each "turn"
-        # Utilized in the while loop which accumulates each "turn" until "goal or more"
+        # Get the id from the URL/query string
+        $id = $this->app->param('id');
 
-        # Array of special numbers, keys=> are value that determine points,
-        # The =>value is the random number that begins each turn
-        $special_numbers = [
-            11 => 5, # Magic
-            6 => 4, # Bonus
-            0  => 9, # Curse
-            1 => 2, # Mystic
-            15 => 7 # Wild
-            ];
-    
-        $random_number = random_int(1, 10);
-    
-        # Check if random number generated is "special"
-        $special_number = array_search($random_number, $special_numbers);
-    
-        return ($special_number) ? $special_number : $random_number;
+        # Retrieve the round data from the database
+        $round = $this->app->db()->findById('rounds', $id);
+
+        # Convert the turns data back to an array
+        $round['player_turns'] = $this->convertTurnsFromStringToArray($round['player_turns']);
+        $round['opponent_turns'] = $this->convertTurnsFromStringToArray($round['opponent_turns']);
+
+        # Load the view, including the round data
+        return $this->app->view('round', ['round' => $round]);
     }
 
     public function playerlog()
@@ -232,7 +129,36 @@ class AppController extends Controller
             'competitor' => $this->app->input('competitor'),
             'timein' => $this->app->input('timein')
             ]);
+    }
+
+    /**
+     * Helper functions
+     */
+    public function convertTurnsFromArrayToString($turns)
+    {
+        $results = '';
+        foreach ($turns as $turn) {
+            $turnAsString = implode(",", $turn); # Convert each turn to a string
+            $results .= $turnAsString . "|";
         }
+        $results = trim($results, '|'); # Remove trailing |
+
+        return $results;
+    }
+
+    public function convertTurnsFromStringToArray($turns)
+    {
+        $results = [];
+        $turns = explode('|', $turns);
+        
+        foreach ($turns as $turn) {
+            $turn = explode(',', $turn);
+           
+            $results[] = $turn;
+        }
+
+        return $results;
+    }
 
     public function register()
     {
@@ -240,5 +166,28 @@ class AppController extends Controller
         $player = $player_saved;
         $players = $this->app->db()->all('players');
         return $this->app->view('register', ['players' => $players]);
+    }
+
+    private function getPoints()
+    {
+        # Create the points with conditions from the outcome of each "turn"
+        # Utilized in the while loop which accumulates each "turn" until "goal or more"
+
+        # Array of special numbers, keys=> are value that determine points,
+        # The =>value is the random number that begins each turn
+        $special_numbers = [
+            11 => 5, # Magic
+            6 => 4, # Bonus
+            0  => 9, # Curse
+            1 => 2, # Mystic
+            15 => 7 # Wild
+            ];
+    
+        $random_number = random_int(1, 10);
+    
+        # Check if random number generated is "special"
+        $special_number = array_search($random_number, $special_numbers);
+    
+        return ($special_number) ? $special_number : $random_number;
     }
 }
